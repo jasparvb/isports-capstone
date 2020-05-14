@@ -84,9 +84,9 @@ class Follow(db.Model):
 
     sportsdb_id = db.Column(db.Integer, nullable=False)
 
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, ondelete='cascade')
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='cascade'), nullable=False)
 
-    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False, ondelete='cascade')
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id', ondelete='cascade'), nullable=False)
 
     category = db.relationship( 'Category', backref="follows")
  
@@ -100,9 +100,9 @@ class UserLanguage(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, ondelete='cascade')
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='cascade'), nullable=False)
 
-    language_id = db.Column(db.Integer, db.ForeignKey('languages.id'), nullable=False, ondelete='cascade')
+    language_id = db.Column(db.Integer, db.ForeignKey('languages.id', ondelete='cascade'), nullable=False)
 
  
 class Language(db.Model):
