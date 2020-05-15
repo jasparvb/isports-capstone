@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Register user{% endblock %}
+{% block content %}
+<div class="container mt-5">
+
+    <h1 class="my-4">Register a new user</h1>
+    {% for msg in get_flashed_messages() %}
+    <p class="message alert alert-success">{{ msg }}</p>
+    {% endfor %}
+    <div class="row">
+        <div class="col col-md-7">
+
+            <form id="add-user-form" method="POST" action="/register">
+                
+                {{ form.hidden_tag() }}
+                {% for field in form if field.widget.input_type != 'hidden' %}
+                <div class="form-group">
+                    {{ field.label }}
+                    {{ field }}
+                    
+                    {% for error in field.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </div>
+                {% endfor %}
+                <button class="btn btn-md btn-red mt-3">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

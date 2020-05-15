@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}iSports News{% endblock %}
+{% block content %}
+    <div id="isportsCarousel" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            {% for article in articles %}
+            <li data-target="#isportsCarousel" data-slide-to="{{ loop.index0 }}" {% if loop.index == 1 %}class="active"{% endif %}></li>
+            {% endfor %}
+        </ol>
+        <div class="carousel-inner">
+            {% for article in articles %}
+            <div class="carousel-item {% if loop.index == 1 %}active{% endif %}">
+                <div class="d-flex align-items-center justify-content-center min-vh-100" style="background: url('{{ article.urlToImage }}') center/cover no-repeat;">
+                    <div class="carousel-caption">
+                    <a href="{{ article.url }}" target="_blank"><h3>{{ article.title }}</h3></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <a class="carousel-control-prev" href="#isportsCarousel" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#isportsCarousel" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+    </div>
+    <div class="container my-5 text-center">
+        <h2>Customized Sports News From Around the World</h2>
+        <p>iSports helps you find the news that matches your interests</p>
+        <button class="btn btn-md btn-red">Create an account</button>
+    </div>
+{% endblock %}
