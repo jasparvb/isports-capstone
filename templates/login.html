@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 
-{% block title %}Register user{% endblock %}
+{% block title %}User Login{% endblock %}
 {% block content %}
 <div class="container mt-5">
 
-    <h1 class="my-4">Create a new account</h1>
+    <h1 class="my-4">User Login</h1>
     {% for msg in get_flashed_messages() %}
     <p class="message alert alert-success">{{ msg }}</p>
     {% endfor %}
     <div class="row">
         <div class="col col-md-7">
 
-            <form id="add-user-form" method="POST" action="/signup">
+            <form id="login-user-form" method="POST" action="/login">
                 
                 {{ form.hidden_tag() }}
                 {% for field in form if field.widget.input_type != 'hidden' %}
@@ -24,7 +24,7 @@
                     {% endfor %}
                 </div>
                 {% endfor %}
-                <button class="btn btn-md btn-red mt-3">Submit</button>
+                <button class="btn btn-md btn-red mt-3">Log in</button>
             </form>
         </div>
     </div>

@@ -28,4 +28,4 @@ There are two APIs that are used on the site:
 ## Database Diagram
 An overview of how the local database is set up.
 
-![](https://raw.githubusercontent.com/jasparvb/isports-capstone/master/images/tables-diagram.JPG)
+![](https://raw.githubusercontent.com/jasparvb/isports-capstone/master/static/img/tables-diagram.JPG)
