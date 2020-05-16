@@ -66,7 +66,7 @@ class Favorite(db.Model):
 
     image_url = db.Column(db.Text, nullable=False)
 
-    published_at = db.Column(db.String(50), nullable=False)
+    published_at = db.Column(db.DateTime, nullable=False)
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
  
@@ -112,9 +112,11 @@ class Language(db.Model):
 
     name = db.Column(db.Text, nullable=False)
 
+    symbol = db.Column(db.Text, nullable=False)
+
     def __repr__(self):
         u = self
-        return f"<Language name={u.name}>"
+        return f"<Language name={u.name} symbol={u.symbol}>"
 
 
 class Category(db.Model):
