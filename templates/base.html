@@ -44,11 +44,10 @@
       <li><a href="/login">Log in</a></li>
       {% else %}
       <li>
-        <a href="/users/{{ g.user.id }}">
-          <img src="{{ g.user.image_url }}" alt="{{ g.user.username }}">
-        </a>
+        <a href="/users/{{ g.user.id }}">User Profile</a>
       </li>
-      <li><a href="/messages/new">New Message</a></li>
+      <li><a href="/news/{{ g.user.id }}">My News</a></li>
+      <li><a href="/events/{{ g.user.id }}">My Events</a></li>
       <li><a href="/logout">Log out</a></li>
       {% endif %}
     </ul>
