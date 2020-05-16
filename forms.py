@@ -19,3 +19,6 @@ class AddFollow(FlaskForm):
     """Form for adding a follow."""
 
     name = StringField("Name", validators=[InputRequired()])
+    category = StringField("Category")
+    sportsdb_id = StringField("Dbid")
+    thumb = StringField("Thumb")

@@ -83,7 +83,7 @@ def signup():
 
         do_login(user)
 
-        return redirect("/")
+        return redirect(f"/users/{user.username}")
 
     else:
         return render_template('signup.html', form=form)
@@ -102,7 +102,7 @@ def login():
         if user:
             do_login(user)
             flash(f"Hello, {user.username}!", "success")
-            return redirect("/")
+            return redirect(f"/news/{user.username}")
 
         flash("Invalid credentials.", 'danger')
 
@@ -117,3 +117,17 @@ def logout():
     flash("You have logged out", 'success')
     return redirect("/login")
 
+############################################################################################
+# User Profile
+############################################################################################
+
+@app.route('/user')
+def show_user():
+    """Show user profile."""
+
+    form = AddFollow()
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/login")
+
+    return render_template('user.html', form=form)

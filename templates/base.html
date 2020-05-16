@@ -6,9 +6,13 @@
   <title>iSports</title>
 
   <link rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://unpkg.com/jquery"></script>
-  <script src="https://unpkg.com/popper"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/axios/dist/axios.js"></script>
+  <script src="https://unpkg.com/@popperjs/core@2"></script>
   <script src="https://unpkg.com/bootstrap"></script>
+  <script src="/static/main.js"></script>
 
   <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
@@ -44,19 +48,16 @@
       <li><a href="/login">Log in</a></li>
       {% else %}
       <li>
-        <a href="/users/{{ g.user.id }}">User Profile</a>
+        <a href="/user">User Profile</a>
       </li>
-      <li><a href="/news/{{ g.user.id }}">My News</a></li>
-      <li><a href="/events/{{ g.user.id }}">My Events</a></li>
+      <li><a href="/news">My News</a></li>
+      <li><a href="/events">My Events</a></li>
       <li><a href="/logout">Log out</a></li>
       {% endif %}
     </ul>
   </div>
 </nav>
 <div class="main container-fluid p-0">
-  {% for category, message in get_flashed_messages(with_categories=True) %}
-  <div class="alert alert-{{ category }}">{{ message }}</div>
-  {% endfor %}
 
   {% block content %}
   {% endblock %}

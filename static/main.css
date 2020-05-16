@@ -71,7 +71,7 @@ p {
     height: 8px;
 }
 
-button.btn-red {
+.btn-red {
     color: #E40113;
     border: 1px solid #E40113;
     border-radius: 0;
@@ -79,12 +79,12 @@ button.btn-red {
     font-family: 'Open Sans', sans-serif;
 }
 
-button.btn-red:hover {
+.btn-red:hover {
     color: white;
     background-color: #E40113;
 }
 
-button.btn:focus, button.btn.focus {
+.btn:focus, .btn.focus {
     outline: 0;
     box-shadow: none;
 }
@@ -98,6 +98,10 @@ button.btn:focus, button.btn.focus {
     width: 100%;
     padding: 0 10px 1px;
     font-size: .9rem;
+}
+
+.card h5, .card p {
+  color: #272727;
 }
 
 /* ======================= Navbar ========================= */
