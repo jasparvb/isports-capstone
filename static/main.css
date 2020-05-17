@@ -21,9 +21,7 @@ input {
 }
 
 img {
-    float: left;
-    width: 200px;
-    margin-right: 20px;
+    width: 100%;
 }
 
 h1, h2, h3, h4, h5 {

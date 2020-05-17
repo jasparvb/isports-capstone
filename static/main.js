@@ -44,7 +44,7 @@ $(async function(){
         const res = await axios.get(`https://www.thesportsdb.com/api/v1/json/1/searchplayers.php?p=${term}`)
         if(res.data.player){
             return players = res.data.player.map( val => {
-                return {label: `<img src="${val.strThumb}"> ${val.strPlayer} (${val.strTeam} - ${val.strPosition})`,
+                return {label: `${val.strPlayer} (${val.strTeam} - ${val.strPosition})`,
                     value: val.strPlayer,
                     category: "player",
                     dbid: val.idPlayer,
@@ -66,7 +66,7 @@ $(async function(){
         // Once a value in the drop down list is selected, do the following:
         select: function(event, ui) {
             // place extra attributes into hidden text fields
-            $('#follow-form #thumb').val(ui.item.thumb);
+            $('#follow-form #tb_image').val(ui.item.thumb);
             $('#follow-form #sportsdb_id').val(ui.item.dbid);
             $('#follow-form #category').val(ui.item.category);
             return false;

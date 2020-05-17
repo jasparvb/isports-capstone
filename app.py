@@ -125,9 +125,50 @@ def logout():
 def show_user():
     """Show user profile."""
 
-    form = AddFollow()
     if not g.user:
         flash("Access unauthorized.", "danger")
         return redirect("/login")
 
+    form = AddFollow()
     return render_template('user.html', form=form)
+
+############################################################################################
+# API
+############################################################################################
+
+@app.route('/api/follow', methods=['POST'])
+def add_follow():
+    """Add an item to follow"""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/login")
+
+    form = AddFollow()
+
+    if form.validate_on_submit():
+        name = form.name.data
+        category = form.category.data
+        sportsdb_id = form.sportsdb_id.data
+        tb_image = form.tb_image.data
+
+        follow = Follow(name=name, category=category, user_id=g.user.id, sportsdb_id=sportsdb_id, tb_image=tb_image)
+        db.session.add(follow)
+        db.session.commit()
+
+    return redirect(f"/user")
+
+@app.route("/follow/<follow_id>/delete", methods=['POST'])
+def delete_follow(follow_id):
+    """Delete follow"""
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/login")
+    
+    follow = Follow.query.get_or_404(follow_id)
+
+    db.session.delete(follow)
+    db.session.commit()
+
+    return redirect(f"/user")
+    
