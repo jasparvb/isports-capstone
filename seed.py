@@ -1,5 +1,5 @@
 from app import app
-from models import db, User, Favorite, Category, Language, UserLanguage, Follow
+from models import db, User, Favorite, Language, UserLanguage, Follow
 
 db.drop_all()
 db.create_all()
@@ -9,12 +9,6 @@ u1 = User.signup(
     "123456",
     "messi@fcb.es"
 )
-
-
-c1 = Category(name="Sport")
-c2 = Category(name="League")
-c3 = Category(name="Team")
-c4 = Category(name="Player")
 
 l1 = Language(name="Arabic", symbol="ar")
 l2 = Language(name="German", symbol="de")
@@ -28,7 +22,7 @@ l9 = Language(name="Portuguese", symbol="pt")
 l10 = Language(name="Russian", symbol="ru")
 l11 = Language(name="Chinese", symbol="zh")
 
-db.session.add_all([u1, c1, c2, c3, c4, l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11])
+db.session.add_all([u1, l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11])
 db.session.commit()
 
 f1 = Favorite(
@@ -49,8 +43,19 @@ f2 = Favorite(
 )
 
 
-follow1 = Follow(name="Lionel Messi", user_id=u1.id, sportsdb_id="34146370", category_id=c4.id)
-follow2 = Follow(name="Barcelona", user_id=u1.id, sportsdb_id="133739", category_id=c3.id)
+follow1 = Follow(
+    name="Lionel Messi",
+    user_id=u1.id,
+    sportsdb_id="34146370",
+    category="player",
+    tb_image="https://www.thesportsdb.com/images/media/player/thumb/rgevg81516994688.jpg")
+
+follow2 = Follow(
+    name="Barcelona",
+    user_id=u1.id,
+    sportsdb_id="133739",
+    category="team",
+    tb_image="https://www.thesportsdb.com/images/media/team/badge/xqwpup1473502878.png")
 
 u1.languages.append(l3)
 

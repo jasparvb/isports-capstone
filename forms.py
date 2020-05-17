@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, TextAreaField
+from wtforms import StringField, PasswordField, TextAreaField, HiddenField
 from wtforms.validators import InputRequired, Optional, Email
 
 class AddUserForm(FlaskForm):
@@ -19,6 +19,6 @@ class AddFollow(FlaskForm):
     """Form for adding a follow."""
 
     name = StringField("Name", validators=[InputRequired()])
-    category = StringField("Category")
-    sportsdb_id = StringField("Dbid")
-    thumb = StringField("Thumb")
+    category = HiddenField("Category")
+    sportsdb_id = HiddenField("Dbid")
+    tb_image = HiddenField("Thumb")

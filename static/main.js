@@ -44,7 +44,7 @@ $(async function(){
         const res = await axios.get(`https://www.thesportsdb.com/api/v1/json/1/searchplayers.php?p=${term}`)
         if(res.data.player){
             return players = res.data.player.map( val => {
-                return {label: `${val.strPlayer} (${val.strTeam} - ${val.strPosition})`,
+                return {label: `<img src="${val.strThumb}"> ${val.strPlayer} (${val.strTeam} - ${val.strPosition})`,
                     value: val.strPlayer,
                     category: "player",
                     dbid: val.idPlayer,
