@@ -86,10 +86,10 @@ class Follow(db.Model):
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='cascade'), nullable=False)
 
-    category_id = db.Column(db.Integer, db.ForeignKey('categories.id', ondelete='cascade'), nullable=False)
+    category = db.Column(db.String(50), nullable=False)
 
-    category = db.relationship( 'Category', backref="follows")
- 
+    tb_image = db.Column(db.Text, nullable=True)
+
     def __repr__(self):
         u = self
         return f"<Follow name={u.name}>"
@@ -117,15 +117,3 @@ class Language(db.Model):
     def __repr__(self):
         u = self
         return f"<Language name={u.name} symbol={u.symbol}>"
-
-
-class Category(db.Model):
-    __tablename__ = 'categories'
-
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-
-    name = db.Column(db.Text, nullable=False)
-
-    def __repr__(self):
-        u = self
-        return f"<Category name={u.name}>"
