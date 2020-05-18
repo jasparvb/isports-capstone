@@ -183,3 +183,12 @@ def search_news():
 
     return render_template('search.html', articles=articles)
     
+@app.route('/news')
+def my_news():
+    """Displays news articles from the items the user follows"""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/login")
+
+    return render_template('news.html')

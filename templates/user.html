@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}User page{% endblock %}
+{% block content %}
+<div class="container my-5">
+    <h1>iSports profile for {{ g.user.username }} </h1>
+    {% for msg in get_flashed_messages() %}
+        <p class="message alert alert-success">{{ msg }}</p>
+    {% endfor %}
+    <p>Username: {{ g.user.username }}<br>
+    Email: {{ g.user.email }}</p>
+    <form action="/user" method="POST">
+        <a href="/user/edit" class="btn btn-sm btn-red">Edit User</a>
+        <button class="btn btn-sm btn-red">Delete User</button>
+    </form>
+    <h2 class="mt-3">Add item to follow:</h2>
+    <p>Type the name of a sport, league, team, or player and select it from the list.<br>You may only follow items that appear in the list.</p>
+    <div class="row">
+        <div class="col col-md-9">
+
+            <form id="follow-form" method="POST" action="/api/follow">
+                
+                {{ form.hidden_tag() }}
+                {% for field in form if field.widget.input_type != 'hidden' %}
+                <div class="form-group">
+                    {{ field.label }}
+                    {{ field }}
+                    
+                    {% for error in field.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </div>
+                {% endfor %}
+                <button class="btn btn-md btn-red mt-3">Follow</button>
+            </form>
+        </div>
+    </div>
+    <h2 class="mt-3">Currently following:</h2>
+    
+    {% if g.user.follows and "team" in g.user.follows|map(attribute='category')|join(', ') %}
+    <div class="container d-flex flex-wrap">
+    {% for follow in g.user.follows %}
+            <div class="my-3 col col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                <h5 class="card-title">{{ follow.category }}</h5>
+                <img src="{{ follow.tb_image }}" alt="">
+                <p class="card-text">{{ follow.name }}</p>
+                <form action="/follow/{{ follow.id }}/delete" method="POST">
+                    <button class="btn btn-sm btn-red">Unfollow</button>
+                </form>
+                </div>
+            </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+</div>
+{% endblock %}
