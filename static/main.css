@@ -109,7 +109,7 @@ p {
 }
 
 .col-news {
-    max-width: 20%;
+    max-width: 350px;
     padding: 0 15px;
 }
 
@@ -246,19 +246,23 @@ p {
     border: 2px solid #E40113;
   }
   
-  @media (max-width: 1400px) {
+  @media (min-width: 768px) and (max-width: 1400px) {
       .col-news {
-          max-width: 25%
+          width: 25%;
+          max-width: 25%;
       }
   }
 
   @media (max-width: 768px) {
       .col-news {
-          max-width: 33%
+          width: 33%;
+          max-width: 33%;
       }
   }
+  
   @media (max-width: 576px) {
       .col-news {
-          max-width: 100%
+          width: 100%;
+          max-width: 100%;
       }
   }

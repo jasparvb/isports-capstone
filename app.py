@@ -3,7 +3,7 @@
 from flask import Flask, request, redirect, render_template, flash, jsonify, session, g
 from models import db, connect_db, User, Favorite, Follow
 from forms import AddUserForm, LoginUserForm, AddFollow
-from isports import get_top_news, get_all_news, get_my_news
+from isports import get_top_news, get_all_news, get_my_news, get_my_events
 
 CURR_USER_KEY = "curr_user"
 
@@ -178,10 +178,10 @@ def search_news():
     """Search sports news"""
     
     search = request.args["q"]
-    print(search)
     articles = get_all_news(search)
 
     return render_template('search.html', articles=articles)
+
     
 @app.route('/news')
 def my_news():
@@ -192,3 +192,15 @@ def my_news():
         return redirect("/login")
     articles = {val.name: get_my_news(val.name) for val in g.user.follows}
     return render_template('news.html', articles=articles)
+
+
+@app.route('/events')
+def my_events():
+    """Displays upcoming and past events from leagues and teams the user follows"""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/login")
+    events = {val.name: get_my_events(val.sportsdb_id, val.category) for val in g.user.follows if val.category == "league" or val.category == "team"}
+    past_events = {val.name: get_my_past_events(val.sportsdb_id, val.category) for val in g.user.follows if val.category == "league" or val.category == "team"}
+    return render_template('events.html', events=events, past_events=past_events)
