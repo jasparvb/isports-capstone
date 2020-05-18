@@ -91,6 +91,12 @@ p {
     box-shadow: none;
 }
 
+.btn-sm.btn-red {
+    font-size: .5rem;
+    padding: 5px 13px;
+    margin: 0 0 1rem 0;
+}
+
 .form-group {
     display: flex;
     height: 50px;
@@ -102,8 +108,46 @@ p {
     font-size: .9rem;
 }
 
+.col-news {
+    max-width: 20%;
+    padding: 0 15px;
+}
+
+.card {
+    border-radius: 3px;
+    border: none;
+}
+
+.card-body {
+    padding: 0;
+}
+
+.card-body img {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.card-body h3 {
+    margin: 0 auto;
+}
+
 .card h5, .card p {
-  color: #272727;
+    color: #272727;
+}
+
+.save-btn {
+    background: rgba(24, 24, 24, 0.8);
+}
+
+.follow-title {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.follow-title h3 {
+    font-size: 1.5rem;
+    margin-top: 0;
+    padding-bottom: 2rem;
 }
 
 /* ======================= Navbar ========================= */
@@ -202,3 +246,19 @@ p {
     border: 2px solid #E40113;
   }
   
+  @media (max-width: 1400px) {
+      .col-news {
+          max-width: 25%
+      }
+  }
+
+  @media (max-width: 768px) {
+      .col-news {
+          max-width: 33%
+      }
+  }
+  @media (max-width: 576px) {
+      .col-news {
+          max-width: 100%
+      }
+  }
