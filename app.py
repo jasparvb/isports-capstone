@@ -3,7 +3,7 @@
 from flask import Flask, request, redirect, render_template, flash, jsonify, session, g
 from models import db, connect_db, User, Favorite, Follow
 from forms import AddUserForm, LoginUserForm, AddFollow
-from isports import get_top_news, get_all_news
+from isports import get_top_news, get_all_news, get_my_news
 
 CURR_USER_KEY = "curr_user"
 
@@ -190,5 +190,5 @@ def my_news():
     if not g.user:
         flash("Access unauthorized.", "danger")
         return redirect("/login")
-
-    return render_template('news.html')
+    articles = {val.name: get_my_news(val.name) for val in g.user.follows}
+    return render_template('news.html', articles=articles)

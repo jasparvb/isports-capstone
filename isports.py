@@ -18,3 +18,10 @@ def get_all_news(term):
     resp = requests.get(f"https://newsapi.org/v2/everything", {"q":f"sports {term}", "language": "de", "apiKey": API_KEY})
 
     return resp.json()["articles"]
+
+def get_my_news(term):
+    """Make API request to return news matching followed item"""
+
+    resp = requests.get(f"https://newsapi.org/v2/everything", {"q": term, "language": "en", "apiKey": API_KEY})
+
+    return resp.json()["articles"]
