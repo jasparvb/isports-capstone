@@ -3,7 +3,7 @@
 from flask import Flask, request, redirect, render_template, flash, jsonify, session, g
 from models import db, connect_db, User, Favorite, Follow
 from forms import AddUserForm, LoginUserForm, AddFollow
-from isports import get_top_news
+from isports import get_top_news, get_all_news
 
 CURR_USER_KEY = "curr_user"
 
@@ -171,4 +171,15 @@ def delete_follow(follow_id):
     db.session.commit()
 
     return redirect(f"/user")
+
+
+@app.route("/search")
+def search_news():
+    """Search sports news"""
+    
+    search = request.args["q"]
+    print(search)
+    articles = get_all_news(search)
+
+    return render_template('search.html', articles=articles)
     

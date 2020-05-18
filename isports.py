@@ -10,3 +10,11 @@ def get_top_news():
     resp = requests.get(f"https://newsapi.org/v2/top-headlines?category=sports&country=us&apiKey={API_KEY}")
 
     return resp.json()["articles"][:7]
+
+
+def get_all_news(term):
+    """Make API request to return news matching search term"""
+
+    resp = requests.get(f"https://newsapi.org/v2/everything", {"q":f"sports {term}", "language": "de", "apiKey": API_KEY})
+
+    return resp.json()["articles"]

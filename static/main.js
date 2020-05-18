@@ -61,7 +61,7 @@ $(async function(){
             let players = await getPlayers(request.term);
             
             let data = players.concat(teams, sports, leagues);
-            response($.ui.autocomplete.filter(data, request.term));
+            response($.ui.autocomplete.filter(data, request.term).slice(0,8));
         },
         // Once a value in the drop down list is selected, do the following:
         select: function(event, ui) {
