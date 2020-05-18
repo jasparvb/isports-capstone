@@ -47,4 +47,8 @@ def get_my_past_events(id, category):
     else:
         resp = requests.get(f"https://www.thesportsdb.com/api/v1/json/1/eventslast.php?id={id}")
     
-    return resp.json()["events"]
+    #import pdb
+    #pdb.set_trace()
+
+    return resp.json()
+    #return [{strFilename: "No events"}]
