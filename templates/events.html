@@ -4,9 +4,6 @@
 {% block content %}
 <div class="container my-5">
     <h1>Sports events for {{ g.user.username }} </h1>
-    {% for msg in get_flashed_messages() %}
-        <p class="message alert alert-success">{{ msg }}</p>
-    {% endfor %}
 </div>
     {% if g.user.follows %}
       
@@ -16,19 +13,17 @@
     <h2>Team events</h2>
     {% for follow in g.user.follows if follow.category == "team" %}
     <div class="row">
-
         <div class="my-3 col-news follow-title">
-            <h3>Events for {{ follow.name }}<img src="{{ follow.tb_image }}" alt=""></h3>
-            
+            <h3>Events for {{ follow.name }}<img class="px-2 pt-3" src="{{ follow.tb_image }}" alt=""></h3>
         </div>
-        <div class="my-3 col-4">
+        <div class="my-3 col-12 col-lg-4">
             <div class="card">
                 <div class="card-body text-center">
                     <h3>Upcoming events</h3>
                     {% if events[follow.name] %}
-                    <ul class="mx-2 my-3 text-left">
+                    <ul class="mx-2 my-3 px-2 text-left event-list">
                         {% for event in events[follow.name] %}
-                        <li>{{ event.dateEvent }} {{ event.strEvent }}<br>({{ event.strLeague }})</li>
+                        <li>{{ event.dateEvent }} {{ event.strEvent }}<br><span class="event-info">{{ event.strLeague }}</span></li>
                         {% endfor %}
                     </ul>
                     {% else %}
@@ -38,14 +33,14 @@
                 </div>
             </div>
         </div>
-        <div class="my-3 col-4">
+        <div class="my-3 col-12 col-lg-4">
             <div class="card">
                 <div class="card-body text-center">
                     <h3>Recent events</h3>
                     {% if past_events[follow.name]["results"] %}
-                    <ul class="mx-2 my-3 text-left">
+                    <ul class="mx-2 my-3 px-2 text-left event-list">
                         {% for event in past_events[follow.name]["results"] %}
-                        <li>{{ event.dateEvent }} {{ event.strEvent }}<br>({{ event.strLeague }})</li>
+                        <li>{{ event.strEvent }} {% if event.intHomeScore %}({{ event.intHomeScore }} : {{ event.intAwayScore }}){% endif %}<br><span class="event-info">{{ event.dateEvent }} | {{ event.strLeague }}</span></li>
                         {% endfor %}
                     </ul>
                     {% else %}
@@ -66,17 +61,17 @@
     <div class="row">
 
         <div class="my-3 col-news follow-title">
-            <h3>Events for {{ follow.name }}<img src="{{ follow.tb_image }}" alt=""></h3>
+            <h3>Events for {{ follow.name }}<img class="px-2 pt-3" src="{{ follow.tb_image }}" alt=""></h3>
             
         </div>
-        <div class="my-3 col-4">
+        <div class="my-3 col-12 col-lg-4">
             <div class="card">
                 <div class="card-body text-center">
                     <h3>Upcoming events</h3>
                     {% if events[follow.name] %}
-                    <ul class="mx-2 my-3 text-left">
+                    <ul class="mx-2 my-3 px-2 text-left event-list">
                         {% for event in events[follow.name] %}
-                        <li>{{ event.dateEvent }} {{ event.strEvent }}<br>({{ event.strLeague }})</li>
+                        <li>{{ event.dateEvent }} {{ event.strEvent }}</li>
                         {% endfor %}
                     </ul>
                     {% else %}
@@ -86,14 +81,14 @@
                 </div>
             </div>
         </div>
-        <div class="my-3 col-4">
+        <div class="my-3 col-12 col-lg-4">
             <div class="card">
                 <div class="card-body text-center">
                     <h3>Recent events</h3>
                     {% if past_events[follow.name]["results"] %}
-                    <ul class="mx-2 my-3 text-left">
+                    <ul class="mx-2 my-3 px-2 text-left event-list">
                         {% for event in past_events[follow.name]["results"] %}
-                        <li>{{ event.dateEvent }} {{ event.strEvent }}<br>({{ event.strLeague }})</li>
+                        <li>{{ event.strEvent }} {% if event.intHomeScore %}({{ event.intHomeScore }} : {{ event.intAwayScore }}){% endif %}<br><span class="event-info">{{ event.dateEvent }}</span></li>
                         {% endfor %}
                     </ul>
                     {% else %}

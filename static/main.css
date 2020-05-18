@@ -150,6 +150,20 @@ p {
     padding-bottom: 2rem;
 }
 
+.event-list {
+    list-style: none;
+}
+
+.event-list li {
+    line-height: 1.2rem;
+    padding-bottom: .5rem;
+}
+
+.event-info {
+    font-size: .8rem;
+    color: #7e7e7e;
+}
+
 /* ======================= Navbar ========================= */
 
 .navbar {
@@ -259,7 +273,7 @@ p {
           max-width: 33%;
       }
   }
-  
+
   @media (max-width: 576px) {
       .col-news {
           width: 100%;

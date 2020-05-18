@@ -51,4 +51,10 @@ def get_my_past_events(id, category):
     #pdb.set_trace()
 
     return resp.json()
-    #return [{strFilename: "No events"}]
+
+def get_league_image(id):
+    """Make API request to return league badge given an id"""
+
+    resp = requests.get(f"https://www.thesportsdb.com/api/v1/json/1/lookupleague.php?id={id}")
+
+    return resp.json()["leagues"][0]["strBadge"]

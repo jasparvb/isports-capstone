@@ -3,7 +3,7 @@
 from flask import Flask, request, redirect, render_template, flash, jsonify, session, g
 from models import db, connect_db, User, Favorite, Follow
 from forms import AddUserForm, LoginUserForm, AddFollow
-from isports import get_top_news, get_all_news, get_my_news, get_my_events, get_my_past_events
+from isports import get_top_news, get_all_news, get_my_news, get_my_events, get_my_past_events, get_league_image
 
 CURR_USER_KEY = "curr_user"
 
@@ -151,6 +151,9 @@ def add_follow():
         category = form.category.data
         sportsdb_id = form.sportsdb_id.data
         tb_image = form.tb_image.data
+
+        if category == "league":
+            tb_image = get_league_image(sportsdb_id)
 
         follow = Follow(name=name, category=category, user_id=g.user.id, sportsdb_id=sportsdb_id, tb_image=tb_image)
         db.session.add(follow)
