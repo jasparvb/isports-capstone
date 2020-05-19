@@ -60,8 +60,6 @@ class Favorite(db.Model):
 
     title = db.Column(db.Text, nullable=False)
 
-    source = db.Column(db.String(255), nullable=False)
-
     url = db.Column(db.Text, nullable=False)
 
     image_url = db.Column(db.Text, nullable=False)

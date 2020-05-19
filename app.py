@@ -224,9 +224,35 @@ def get_favorites():
     return render_template('favorites.html', favorites=favorites)
 
 
+@app.route("/favorites", methods=['POST'])
+def add_favorite():
+    """Save a sports news article"""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/login")
+    
+    title = request.json['title']
+    url = request.json['url']
+    image_url = request.json['image_url']
+    published_at = request.json['published_at']
+
+    favorite = Favorite(title=title, url=url, image_url=image_url, published_at=published_at, user_id=g.user.id)
+
+    db.session.add(favorite)
+    db.session.commit()
+
+    return (jsonify(favorite={id: favorite.id}), 201)
+
+
 @app.route("/favorites/<int:id>", methods=['DELETE'])
 def delete_favorite(id):
     """Delete a saved article"""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/login")
+
     article = Favorite.query.get_or_404(id)
     db.session.delete(article)
     db.session.commit()

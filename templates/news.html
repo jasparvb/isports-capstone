@@ -27,12 +27,10 @@
                         {% if article.urlToImage %}
                             <img src="{{ article.urlToImage }}" alt="">
                         {% else %}
-                            <p class="default-img"><img src="/static/img/isports-logo.png" alt="logo"></p>
+                            <img src="/static/img/isports-default.png" alt="logo">
                         {% endif %}
                     <h3>{{ article.title }}</h3></a>
-                    <form action="/" method="POST" class="save-btn">
-                        <button class="btn btn-sm btn-red">Save</button>
-                    </form>
+                    <button data-id="" class="btn btn-sm btn-red save-btn">Save</button>
                 </div>
             </div>
             </div>

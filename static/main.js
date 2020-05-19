@@ -99,7 +99,7 @@ $(async function(){
 
             const response = await axios.post(`${BASE_URL}/favorites`, {title, url, image_url, published_at});
 
-            console.log(response);
+            console.log(response.data.favorite);
         }
 
         

@@ -10,9 +10,14 @@
             <div class="my-3 col col-md-4 article">
             <div class="card">
                 <div class="card-body text-center" data-timestamp="{{ article.publishedAt }}">
-                    <a href="{{ article.url }}" target="_blank"><img src="{{ article.urlToImage }}" alt="">
+                    <a href="{{ article.url }}" target="_blank">
+                        {% if article.urlToImage %}
+                            <img src="{{ article.urlToImage }}" alt="">
+                        {% else %}
+                            <img src="/static/img/isports-default.png" alt="logo">
+                        {% endif %}
                     <h3>{{ article.title }}</h3></a>
-                    <button class="btn btn-sm btn-red save-btn">Save</button>
+                    <button data-id="" class="btn btn-sm btn-red save-btn">Save</button>
                 </div>
             </div>
             </div>
