@@ -24,7 +24,11 @@
             <div class="card">
                 <div class="card-body text-center">
                     <a href="{{ article.url }}" target="_blank">
-                    <img src="{{ article.urlToImage }}" alt="">
+                        {% if article.urlToImage %}
+                            <img src="{{ article.urlToImage }}" alt="">
+                        {% else %}
+                            <p class="default-img"><img src="/static/img/isports-logo.png" alt="logo"></p>
+                        {% endif %}
                     <h3>{{ article.title }}</h3></a>
                     <form action="/" method="POST" class="save-btn">
                         <button class="btn btn-sm btn-red">Save</button>
