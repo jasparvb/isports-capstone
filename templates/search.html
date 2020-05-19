@@ -2,17 +2,17 @@
 
 {% block title %}iSports News{% endblock %}
 {% block content %}
-    
+    <div class="container my-5">
+        <h2>Results for "{{ search }}"</h2>
+    </div>
     <div class="container my-5 d-flex flex-wrap news-search">
         {% for article in articles %}
-            <div class="my-3 col col-md-4">
+            <div class="my-3 col col-md-4 article">
             <div class="card">
-                <div class="card-body text-center">
+                <div class="card-body text-center" data-timestamp="{{ article.publishedAt }}">
                     <a href="{{ article.url }}" target="_blank"><img src="{{ article.urlToImage }}" alt="">
                     <h3>{{ article.title }}</h3></a>
-                <form action="/" method="POST" class="save-btn">
-                    <button class="btn btn-sm btn-red">Save</button>
-                </form>
+                    <button class="btn btn-sm btn-red save-btn">Save</button>
                 </div>
             </div>
             </div>

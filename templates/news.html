@@ -20,9 +20,9 @@
             <h3>News for {{ follow.name }}</h3>
         </div>
         {% for article in articles[follow.name] %}
-                <div class="my-3 col-news">
+            <div class="my-3 col-news article">
             <div class="card">
-                <div class="card-body text-center">
+                <div class="card-body text-center" data-timestamp="{{ article.publishedAt }}">
                     <a href="{{ article.url }}" target="_blank">
                         {% if article.urlToImage %}
                             <img src="{{ article.urlToImage }}" alt="">

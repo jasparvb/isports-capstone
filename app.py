@@ -183,7 +183,7 @@ def search_news():
     search = request.args["q"]
     articles = get_all_news(search)
 
-    return render_template('search.html', articles=articles)
+    return render_template('search.html', articles=articles, search=search)
 
     
 @app.route('/news')
@@ -209,3 +209,26 @@ def my_events():
     past_events = {val.name: get_my_past_events(val.sportsdb_id, val.category) for val in g.user.follows if val.category == "league" or val.category == "team"}
     
     return render_template('events.html', events=events, past_events=past_events)
+
+
+@app.route("/favorites")
+def get_favorites():
+    """Saved sports news articles"""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/login")
+        
+    favorites = Favorite.query.filter_by(id=g.user.id)
+
+    return render_template('favorites.html', favorites=favorites)
+
+
+@app.route("/favorites/<int:id>", methods=['DELETE'])
+def delete_favorite(id):
+    """Delete a saved article"""
+    article = Favorite.query.get_or_404(id)
+    db.session.delete(article)
+    db.session.commit()
+
+    return jsonify(message="Deleted")

@@ -64,6 +64,7 @@ p {
     padding: 56px;
     height: 180px;
     margin: 0;
+    background: white;
 }
 
 .carousel-control-prev-icon, .carousel-control-next-icon {
@@ -126,6 +127,7 @@ p {
 
 .card-body {
     padding: 0;
+    background: rgba(24, 24, 24, 0.8);
 }
 
 .card-body img {
@@ -135,6 +137,7 @@ p {
 
 .card-body h3 {
     margin: 0 auto;
+    background: none;
 }
 
 .card h5, .card p {
@@ -142,7 +145,7 @@ p {
 }
 
 .save-btn {
-    background: rgba(24, 24, 24, 0.8);
+    
 }
 
 .follow-title {

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}iSports News Favorites{% endblock %}
+{% block content %}
+    <div class="container my-5">
+        <h2>Saved articles</h2>
+    </div>
+
+    <div class="container my-5 d-flex flex-wrap news-search">
+        {% for favorite in favorites %}
+            <div class="my-3 col col-md-4 article">
+            <div class="card">
+                <div class="card-body text-center">
+                    <a href="{{ favorite.url }}" target="_blank"><img src="{{ favorite.image_url }}" alt="">
+                    <h3>{{ favorite.title }}</h3></a>
+                    <button data-id="{{ favorite.id }}" class="btn btn-sm btn-red save-btn">Delete</button>
+                </div>
+            </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

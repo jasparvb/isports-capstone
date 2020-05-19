@@ -2,6 +2,7 @@ $(async function(){
 
     const sports = await getSports();
     const leagues = await getLeagues();
+    const BASE_URL = "http://127.0.0.1:5000";
     
 
     async function getSports() {
@@ -72,5 +73,36 @@ $(async function(){
             return false;
         }
       });
+
+    $('body').on('click', '.save-btn', toggleFavorite.bind(this));
+
+    async function toggleFavorite(e) {
+        let $this = $(e.target)
+        console.log($(e.target).text());
+        if($this.text() === "Delete" || $this.text() === "Undo saved") {
+            let favoriteId = $this.attr('data-id');
+
+            await axios.delete(`${BASE_URL}/favorites/${favoriteId}`);
+
+            if($this.text() === "Delete") {
+                $this.closest('.article').remove();
+            } else {
+                $this.text('Save');
+            }
+        }
+
+        if($this.text() === "Save") {
+            let title = $this.closest('.card-body').find('h3').text();
+            let image_url = $this.closest('.card-body').find('img').attr('src');
+            let url = $this.closest('.card-body').find('a').attr('href');
+            let published_at = $this.closest('.card-body').attr('data-timestamp');
+
+            const response = await axios.post(`${BASE_URL}/favorites`, {title, url, image_url, published_at});
+
+            console.log(response);
+        }
+
+        
+    }
 
 });
