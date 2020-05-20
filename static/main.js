@@ -22,6 +22,7 @@ $(async function(){
             $('#follow-form #tb_image').val(ui.item.thumb);
             $('#follow-form #sportsdb_id').val(ui.item.dbid);
             $('#follow-form #category').val(ui.item.category);
+            $('#follow-form #name').val(ui.item.value);
             return false;
         }
     });
@@ -52,8 +53,19 @@ $(async function(){
         const res = await axios.get(`https://www.thesportsdb.com/api/v1/json/1/searchteams.php?t=${term}`);
         if(res.data.teams){
             return teams = res.data.teams.map( val => {
-                return {label: `${val.strTeam} - ${val.strLeague} (${val.strCountry})`,
-                        value: val.strTeam,
+                //Combine unique words from teamName field and alternate team name field into one array
+                let teamNameArr = val.strTeam.split(" ").concat(val.strAlternate.split(" "));
+                let teamAlternateArr = val.strAlternate.split(" ");
+
+                for(let val of teamNameArr) {
+                    if(!teamAlternateArr.includes(val)){
+                        teamAlternateArr.push(val)
+                    }
+                }
+                let teamName = teamAlternateArr.join(' ');
+
+                return {label: `${teamName} - ${val.strLeague} (${val.strCountry})`,
+                        value: teamName,
                         category: "team",
                         dbid: val.idTeam,
                         thumb: val.strTeamBadge}
@@ -76,7 +88,7 @@ $(async function(){
         return [];
     }
 
-
+    //Toggles a article as a favorite when user clicks on save btn
     async function toggleFavorite(e) {
         let $this = $(e.target);
         if($this.hasClass('delete') || $this.hasClass('saved')) {
@@ -88,15 +100,14 @@ $(async function(){
                 $this.closest('.article').remove();
             } else {
                 let url = $this.closest('.card-body').find('a').attr('href');
+                //update all identical articles on the page to show as unsaved
                 for(let val of $('.card-body').find('a')) {
                     if(val.href === url) {
                         let savedBtn = $(val).next();
                         savedBtn.text('Save');
                         savedBtn.removeClass('saved');
-    
                     }
                 }
-    
             }
         }
         else {
@@ -107,19 +118,19 @@ $(async function(){
 
             const response = await axios.post(`${BASE_URL}/favorites`, {title, url, image_url, published_at});
 
+            //update all identical articles on the page to show as saved
             for(let val of $('.card-body').find('a')) {
                 if(val.href === url) {
                     let savedBtn = $(val).next();
                     savedBtn.attr('data-id', response.data.favorite.id);
                     savedBtn.text('Undo saved');
                     savedBtn.addClass('saved');
-
                 }
             }
-
         }
     }
 
+    //Retrieves 7 more news articles when user clicks 'Show More' btn and adds them to the DOM
     async function loadMoreNews(e) {
         let $this = $(e.target);
         let page = $this.attr('data-page');
@@ -128,27 +139,27 @@ $(async function(){
 
         const response = await axios.post(`${BASE_URL}/news`, {page, term});
         
-        for(let article of response.data.articles) {
-            let newArticle = generateHTML(article);
-            console.log($this.closest('.row').prev());
-            $this.closest('.row').prev().append(newArticle);
+        if(response.data.articles[0]){
+            console.log(response.data.articles)
+            for(let article of response.data.articles) {
+                let newArticle = generateHTML(article);
+                $this.closest('.row').prev().append(newArticle);
+            }
+            $this.attr('data-page', page);
+        } else {
+            $this.remove();
         }
-        $this.attr('data-page', page);
     }
 
     function generateHTML(article) {
         let $item = $(`
-        <div class="my-3 col-news article">
+        <div class="my-3 col-12 col-md-4 col-news article">
             <div class="card">
                 <div class="card-body text-center" data-timestamp="${article.publishedAt}">
                     <a href="${article.url}" target="_blank">
-                        
-                            <img src="${article.urlToImage}" alt="">
-                        
+                    <img src="${article.urlToImage}" alt="">
                     <h3>${article.title}</h3></a>
-                    
-                        <button data-id="" class="btn btn-sm btn-red save-btn">Save</button>
-                    
+                    <button data-id="" class="btn btn-sm btn-red save-btn">Save</button>
                 </div>
             </div>
         </div>

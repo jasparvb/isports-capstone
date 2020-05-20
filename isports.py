@@ -1,6 +1,5 @@
 """iSports: finds latest sports news headlines using newsapi.org"""
 
-from random import randrange as random_num
 from secret import API_KEY
 import requests
 
@@ -12,10 +11,10 @@ def get_top_news():
     return resp.json()["articles"]
 
 
-def get_all_news(term):
+def get_all_news(term, page=1):
     """Make API request to return news matching search term"""
 
-    resp = requests.get(f"https://newsapi.org/v2/everything", {"q":f"sports {term}", "pageSize": 5, "page": 1, "language": "de", "apiKey": API_KEY})
+    resp = requests.get(f"https://newsapi.org/v2/everything", {"q":f"sports {term}", "pageSize": 15, "page": page, "language": "de", "apiKey": API_KEY})
 
     return resp.json()["articles"]
 
@@ -23,9 +22,10 @@ def get_all_news(term):
 def get_my_news(term, page=1):
     """Make API request to return news matching followed item"""
 
-    resp = requests.get(f"https://newsapi.org/v2/everything", {"q": term, "pageSize": 5, "page": page, "language": "en", "apiKey": API_KEY})
-
-    return resp.json()["articles"]
+    resp = requests.get(f"https://newsapi.org/v2/everything", {"q": term, "pageSize": 7, "page": page, "language": "en", "apiKey": API_KEY})
+    if resp.json()["status"] == "ok":
+        return resp.json()["articles"]
+    return {"error": "Max reached"}
 
 
 def get_my_events(id, category):
@@ -47,9 +47,6 @@ def get_my_past_events(id, category):
     else:
         resp = requests.get(f"https://www.thesportsdb.com/api/v1/json/1/eventslast.php?id={id}")
     
-    #import pdb
-    #pdb.set_trace()
-
     return resp.json()
 
 def get_league_image(id):

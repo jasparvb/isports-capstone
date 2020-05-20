@@ -5,9 +5,10 @@
     <div class="container my-5">
         <h2>Results for "{{ search }}"</h2>
     </div>
-    <div class="container my-5 d-flex flex-wrap news-search">
+    <div class="container my-5  news-search">
+        <div class="row news-row d-flex flex-wrap">
         {% for article in articles %}
-            <div class="my-3 col col-md-4 article">
+            <div class="my-3 col-12 col-md-4 col-news article">
             <div class="card">
                 <div class="card-body text-center" data-timestamp="{{ article.publishedAt }}">
                     <a href="{{ article.url }}" target="_blank">
@@ -28,5 +29,12 @@
             </div>
             </div>
         {% endfor %}
+        </div>
+        <div class="row mb-5 text-center">
+            <div class="col">
+                <button class="btn btn-md btn-red text-center show-more-btn" data-page="1" data-term="{{ search }}">Show More</button>
+            </div>
+        </div>
+    
     </div>
 {% endblock %}

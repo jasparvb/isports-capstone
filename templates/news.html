@@ -41,7 +41,11 @@
             </div>
         {% endfor %}
     </div>
-    <div class="row text-center"><div class="col"><button class="btn btn-md btn-red text-center show-more-btn" data-page="1" data-term="{{ follow.name }}">Show More</button></div></div>
+    <div class="row mb-5 text-center">
+        <div class="col">
+            <button class="btn btn-md btn-red text-center show-more-btn" data-page="1" data-term="{{ follow.name }}">Show More</button>
+        </div>
+    </div>
     {% endfor %}
     </div>
 {% else %}

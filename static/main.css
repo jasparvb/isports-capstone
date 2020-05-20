@@ -98,10 +98,18 @@ p {
     box-shadow: none;
 }
 
+.btn-md.btn-red {
+    font-size: .6rem;
+    padding: 10px 30px;
+}
+
 .btn-sm.btn-red {
     font-size: .5rem;
     padding: 5px 13px;
     margin: 0 0 1rem 0;
+}
+
+.news-search .btn-sm.btn-red {
     position: absolute;
     top: 5px;
     right: 5px;
@@ -283,7 +291,7 @@ p {
       }
   }
 
-  @media (max-width: 768px) {
+  @media (min-width: 576px) and (max-width: 768px) {
       .col-news {
           width: 33%;
           max-width: 33%;
