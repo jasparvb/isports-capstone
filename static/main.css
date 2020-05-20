@@ -102,6 +102,9 @@ p {
     font-size: .5rem;
     padding: 5px 13px;
     margin: 0 0 1rem 0;
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }
 
 .form-group {

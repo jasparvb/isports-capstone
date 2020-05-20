@@ -17,7 +17,13 @@
                             <img src="/static/img/isports-default.png" alt="logo">
                         {% endif %}
                     <h3>{{ article.title }}</h3></a>
-                    <button data-id="" class="btn btn-sm btn-red save-btn">Save</button>
+                    {% if article.url in g.user.favorites|map(attribute='url')|join(', ') %}
+                        {% for favorite in g.user.favorites if favorite.url == article.url %}
+                        <button data-id="{{ favorite.id }}" class="btn btn-sm btn-red save-btn saved">Undo saved</button>
+                        {% endfor %}
+                    {% else %}
+                        <button data-id="" class="btn btn-sm btn-red save-btn">Save</button>
+                    {% endif %}
                 </div>
             </div>
             </div>
