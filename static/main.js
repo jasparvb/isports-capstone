@@ -86,8 +86,16 @@ $(async function(){
             if($this.hasClass('delete')) {
                 $this.closest('.article').remove();
             } else {
-                $this.text('Save');
-                $this.removeClass('saved');
+                let url = $this.closest('.card-body').find('a').attr('href');
+                for(let val of $('.card-body').find('a')) {
+                    if(val.href === url) {
+                        let savedBtn = $(val).next();
+                        savedBtn.text('Save');
+                        savedBtn.removeClass('saved');
+    
+                    }
+                }
+    
             }
         }
         else {
@@ -98,9 +106,16 @@ $(async function(){
 
             const response = await axios.post(`${BASE_URL}/favorites`, {title, url, image_url, published_at});
 
-            $this.attr('data-id', response.data.favorite.id);
-            $this.text('Undo saved');
-            $this.addClass('saved');
+            for(let val of $('.card-body').find('a')) {
+                if(val.href === url) {
+                    let savedBtn = $(val).next();
+                    savedBtn.attr('data-id', response.data.favorite.id);
+                    savedBtn.text('Undo saved');
+                    savedBtn.addClass('saved');
+
+                }
+            }
+
         }
     }
 

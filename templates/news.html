@@ -10,7 +10,6 @@
 </div>
     {% if g.user.follows %}
       
-    {% if "player" in g.user.follows|map(attribute='category')|join(', ') %}
     <div class="container-fluid my-5 news-search">
         
     {% for follow in g.user.follows %}
@@ -30,7 +29,13 @@
                             <img src="/static/img/isports-default.png" alt="logo">
                         {% endif %}
                     <h3>{{ article.title }}</h3></a>
-                    <button data-id="" class="btn btn-sm btn-red save-btn">Save</button>
+                    {% if article.url in g.user.favorites|map(attribute='url')|join(', ') %}
+                        {% for favorite in g.user.favorites if favorite.url == article.url %}
+                        <button data-id="{{ favorite.id }}" class="btn btn-sm btn-red save-btn saved">Undo saved</button>
+                        {% endfor %}
+                    {% else %}
+                        <button data-id="" class="btn btn-sm btn-red save-btn">Save</button>
+                    {% endif %}
                 </div>
             </div>
             </div>
@@ -39,7 +44,6 @@
     <div class="row text-center"><div class="col"><button class="btn btn-sm btn-red text-center">Show More</button></div></div>
     {% endfor %}
     </div>
-    {% endif %}
 {% else %}
 <div class="container"></div>
 <p>You have not yet followed anything. Go your <a href="/user">profile page</a> to follow a sport, league, team, or player. Then come back here to see related news.</p>
