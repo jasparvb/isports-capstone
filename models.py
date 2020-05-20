@@ -33,21 +33,21 @@ class User(db.Model):
         return f"<User username={u.username} email={u.email}>"
 
     @classmethod
-    def signup (cls, username, pwd, email):
+    def signup (cls, username, password, email):
         """Sign up a user with hashed password and return user"""
 
-        hashed = bcrypt.generate_password_hash(pwd)
+        hashed = bcrypt.generate_password_hash(password)
         hashed_utf8 = hashed.decode("utf8")
         user = cls(username=username, password=hashed_utf8, email=email)
         db.session.add(user)
         return user
 
     @classmethod
-    def login (cls, username, pwd):
+    def login (cls, username, password):
         """Check to see if user exists and return user if valid, else return False"""
         user = User.query.filter_by(username=username).first()
 
-        if user and bcrypt.check_password_hash(user.password, pwd):
+        if user and bcrypt.check_password_hash(user.password, password):
             return user
         else:
             return False

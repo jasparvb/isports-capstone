@@ -1,6 +1,7 @@
 """Flask app for iSports"""
 
 from flask import Flask, request, redirect, render_template, flash, jsonify, session, g
+from sqlalchemy.exc import IntegrityError
 from models import db, connect_db, User, Favorite, Follow
 from forms import AddUserForm, LoginUserForm, AddFollow
 from isports import get_top_news, get_all_news, get_my_news, get_my_events, get_my_past_events, get_league_image
@@ -83,7 +84,7 @@ def signup():
 
         do_login(user)
 
-        return redirect(f"/users/{user.username}")
+        return redirect(f"/user")
 
     else:
         return render_template('signup.html', form=form)
@@ -150,7 +151,7 @@ def add_follow():
         name = form.name.data
         category = form.category.data
         sportsdb_id = form.sportsdb_id.data
-        tb_image = form.tb_image.data
+        tb_image = form.tb_image.data if form.tb_image.data else "/static/img/isports-default.png"
 
         if category == "league":
             tb_image = get_league_image(sportsdb_id)
@@ -226,7 +227,7 @@ def my_events():
     if not g.user:
         flash("You must log in to access that page.", "danger")
         return redirect("/login")
-        
+
     events = {val.name: get_my_events(val.sportsdb_id, val.category) for val in g.user.follows if val.category == "league" or val.category == "team"}
     past_events = {val.name: get_my_past_events(val.sportsdb_id, val.category) for val in g.user.follows if val.category == "league" or val.category == "team"}
     

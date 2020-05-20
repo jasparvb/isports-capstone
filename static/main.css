@@ -31,9 +31,12 @@ h1, h2, h3, h4, h5 {
 
 h3 {
     background: rgba(24, 24, 24, 0.8);
-    max-width: 1000px;
     margin: 40px auto;
     padding: 20px 20px;
+}
+
+.carousel-caption h3 {
+    max-width: 1000px;
 }
 
 .news-search h3 {
@@ -158,12 +161,13 @@ p {
     background: none;
 }
 
-.card h5, .card p {
+.card p {
     color: #272727;
 }
 
-.save-btn {
-    
+.card h4 {
+    color: #272727;
+    font-size: 1rem;
 }
 
 .follow-title {
@@ -189,6 +193,18 @@ p {
 .event-info {
     font-size: .8rem;
     color: #7e7e7e;
+}
+
+.message.alert {
+    padding: .6rem 1rem;
+    font-size: .9rem;
+    border-radius: 0;
+}
+
+.alert-danger {
+    color: white;
+    background-color: #E40113;
+    border-color: #E40113;
 }
 
 /* ======================= Navbar ========================= */
