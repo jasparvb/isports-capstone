@@ -7,23 +7,23 @@ import requests
 def get_top_news():
     """Make API requests to return top sports news"""
 
-    resp = requests.get(f"https://newsapi.org/v2/top-headlines?category=sports&country=us&apiKey={API_KEY}")
+    resp = requests.get(f"https://newsapi.org/v2/top-headlines?category=sports&country=us&pageSize=7&apiKey={API_KEY}")
 
-    return resp.json()["articles"][:7]
+    return resp.json()["articles"]
 
 
 def get_all_news(term):
     """Make API request to return news matching search term"""
 
-    resp = requests.get(f"https://newsapi.org/v2/everything", {"q":f"sports {term}", "language": "de", "apiKey": API_KEY})
+    resp = requests.get(f"https://newsapi.org/v2/everything", {"q":f"sports {term}", "pageSize": 5, "page": 1, "language": "de", "apiKey": API_KEY})
 
     return resp.json()["articles"]
 
 
-def get_my_news(term):
+def get_my_news(term, page=1):
     """Make API request to return news matching followed item"""
 
-    resp = requests.get(f"https://newsapi.org/v2/everything", {"q": term, "language": "en", "apiKey": API_KEY})
+    resp = requests.get(f"https://newsapi.org/v2/everything", {"q": term, "pageSize": 5, "page": page, "language": "en", "apiKey": API_KEY})
 
     return resp.json()["articles"]
 

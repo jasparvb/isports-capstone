@@ -198,6 +198,21 @@ def my_news():
     return render_template('news.html', articles=articles)
 
 
+@app.route('/news', methods=['POST'])
+def load_more_news():
+    """Retrieves the next page of articles for the term"""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/login")
+
+    term = request.json['term']
+    page = request.json['page']
+    articles = get_my_news(term, page)
+    
+    return (jsonify(articles=articles), 201)
+
+
 @app.route('/events')
 def my_events():
     """Displays upcoming and past events from leagues and teams the user follows"""
