@@ -125,8 +125,12 @@ p {
     border: none;
 }
 
+
 .card-body {
     padding: 0;
+}
+
+.article .card-body {
     background: rgba(24, 24, 24, 0.8);
 }
 
@@ -137,6 +141,9 @@ p {
 
 .card-body h3 {
     margin: 0 auto;
+}
+
+.article .card-body h3 {
     background: none;
 }
 

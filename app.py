@@ -219,9 +219,7 @@ def get_favorites():
         flash("Access unauthorized.", "danger")
         return redirect("/login")
         
-    favorites = Favorite.query.filter_by(id=g.user.id)
-
-    return render_template('favorites.html', favorites=favorites)
+    return render_template('favorites.html')
 
 
 @app.route("/favorites", methods=['POST'])
@@ -242,7 +240,7 @@ def add_favorite():
     db.session.add(favorite)
     db.session.commit()
 
-    return (jsonify(favorite={id: favorite.id}), 201)
+    return (jsonify(favorite={"id": favorite.id}), 201)
 
 
 @app.route("/favorites/<int:id>", methods=['DELETE'])

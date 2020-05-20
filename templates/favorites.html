@@ -7,13 +7,13 @@
     </div>
 
     <div class="container my-5 d-flex flex-wrap news-search">
-        {% for favorite in favorites %}
+        {% for favorite in g.user.favorites %}
             <div class="my-3 col col-md-4 article">
             <div class="card">
                 <div class="card-body text-center">
                     <a href="{{ favorite.url }}" target="_blank"><img src="{{ favorite.image_url }}" alt="">
                     <h3>{{ favorite.title }}</h3></a>
-                    <button data-id="{{ favorite.id }}" class="btn btn-sm btn-red save-btn">Delete</button>
+                    <button data-id="{{ favorite.id }}" class="btn btn-sm btn-red save-btn delete">Delete</button>
                 </div>
             </div>
             </div>

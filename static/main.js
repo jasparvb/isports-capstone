@@ -4,6 +4,26 @@ $(async function(){
     const leagues = await getLeagues();
     const BASE_URL = "http://127.0.0.1:5000";
     
+    $('body').on('click', '.save-btn', toggleFavorite.bind(this));
+    
+    $( "#follow-form #name" ).autocomplete({
+        minLength: 3,
+        source: async function (request, response) {
+            let teams = await getTeams(request.term);
+            let players = await getPlayers(request.term);
+            
+            let data = players.concat(teams, sports, leagues);
+            response($.ui.autocomplete.filter(data, request.term).slice(0,8));
+        },
+        // Once a value in the drop down list is selected, do the following:
+        select: function(event, ui) {
+            // place extra attributes into hidden text fields
+            $('#follow-form #tb_image').val(ui.item.thumb);
+            $('#follow-form #sportsdb_id').val(ui.item.dbid);
+            $('#follow-form #category').val(ui.item.category);
+            return false;
+        }
+    });
 
     async function getSports() {
         const res = await axios.get("https://www.thesportsdb.com/api/v1/json/1/all_sports.php");
@@ -55,43 +75,22 @@ $(async function(){
         return [];
     }
 
-      $( "#follow-form #name" ).autocomplete({
-        minLength: 3,
-        source: async function (request, response) {
-            let teams = await getTeams(request.term);
-            let players = await getPlayers(request.term);
-            
-            let data = players.concat(teams, sports, leagues);
-            response($.ui.autocomplete.filter(data, request.term).slice(0,8));
-        },
-        // Once a value in the drop down list is selected, do the following:
-        select: function(event, ui) {
-            // place extra attributes into hidden text fields
-            $('#follow-form #tb_image').val(ui.item.thumb);
-            $('#follow-form #sportsdb_id').val(ui.item.dbid);
-            $('#follow-form #category').val(ui.item.category);
-            return false;
-        }
-      });
-
-    $('body').on('click', '.save-btn', toggleFavorite.bind(this));
 
     async function toggleFavorite(e) {
         let $this = $(e.target)
-        console.log($(e.target).text());
-        if($this.text() === "Delete" || $this.text() === "Undo saved") {
+        if($this.hasClass('delete') || $this.hasClass('saved')) {
             let favoriteId = $this.attr('data-id');
 
             await axios.delete(`${BASE_URL}/favorites/${favoriteId}`);
 
-            if($this.text() === "Delete") {
+            if($this.hasClass('delete')) {
                 $this.closest('.article').remove();
             } else {
                 $this.text('Save');
+                $this.removeClass('saved');
             }
         }
-
-        if($this.text() === "Save") {
+        else {
             let title = $this.closest('.card-body').find('h3').text();
             let image_url = $this.closest('.card-body').find('img').attr('src');
             let url = $this.closest('.card-body').find('a').attr('href');
@@ -99,10 +98,10 @@ $(async function(){
 
             const response = await axios.post(`${BASE_URL}/favorites`, {title, url, image_url, published_at});
 
-            console.log(response.data.favorite);
+            $this.attr('data-id', response.data.favorite.id);
+            $this.text('Undo saved');
+            $this.addClass('saved');
         }
-
-        
     }
 
 });

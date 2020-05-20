@@ -40,12 +40,12 @@
     {% if g.user.follows and "team" in g.user.follows|map(attribute='category')|join(', ') %}
     <div class="container d-flex flex-wrap">
     {% for follow in g.user.follows %}
-            <div class="my-3 col col-md-3">
+            <div class="my-3 col col-md-4">
             <div class="card">
                 <div class="card-body text-center">
                 <img src="{{ follow.tb_image }}" alt="">
-                <h5 class="card-title">{{ follow.category }}</h5>
-                <p class="card-text">{{ follow.name }}</p>
+                <h5 class="card-title mt-3">{{ follow.name }}</h5>
+                <p class="card-text">{{ follow.category }}</p>
                 <form action="/follow/{{ follow.id }}/delete" method="POST">
                     <button class="btn btn-sm btn-red">Unfollow</button>
                 </form>
