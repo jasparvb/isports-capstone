@@ -13,7 +13,7 @@
     <div class="container-fluid my-5 news-search">
         
     {% for follow in g.user.follows %}
-    <div class="row news-row" data-page="1">
+    <div class="row news-row">
 
         <div class="my-3 col-news follow-title">
             <h3>News for {{ follow.name }}</h3>
@@ -41,7 +41,7 @@
             </div>
         {% endfor %}
     </div>
-    <div class="row text-center"><div class="col"><button class="btn btn-md btn-red text-center show-more">Show More</button></div></div>
+    <div class="row text-center"><div class="col"><button class="btn btn-md btn-red text-center show-more-btn" data-page="1" data-term="{{ follow.name }}">Show More</button></div></div>
     {% endfor %}
     </div>
 {% else %}

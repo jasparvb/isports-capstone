@@ -5,6 +5,7 @@ $(async function(){
     const BASE_URL = "http://127.0.0.1:5000";
     
     $('body').on('click', '.save-btn', toggleFavorite.bind(this));
+    $('body').on('click', '.show-more-btn', loadMoreNews.bind(this));
     
     $( "#follow-form #name" ).autocomplete({
         minLength: 3,
@@ -77,7 +78,7 @@ $(async function(){
 
 
     async function toggleFavorite(e) {
-        let $this = $(e.target)
+        let $this = $(e.target);
         if($this.hasClass('delete') || $this.hasClass('saved')) {
             let favoriteId = $this.attr('data-id');
 
@@ -117,6 +118,42 @@ $(async function(){
             }
 
         }
+    }
+
+    async function loadMoreNews(e) {
+        let $this = $(e.target);
+        let page = $this.attr('data-page');
+        let term = $this.attr('data-term');
+        page = parseInt(page) + 1;
+
+        const response = await axios.post(`${BASE_URL}/news`, {page, term});
+        
+        for(let article of response.data.articles) {
+            let newArticle = generateHTML(article);
+            console.log($this.closest('.row').prev());
+            $this.closest('.row').prev().append(newArticle);
+        }
+        $this.attr('data-page', page);
+    }
+
+    function generateHTML(article) {
+        let $item = $(`
+        <div class="my-3 col-news article">
+            <div class="card">
+                <div class="card-body text-center" data-timestamp="${article.publishedAt}">
+                    <a href="${article.url}" target="_blank">
+                        
+                            <img src="${article.urlToImage}" alt="">
+                        
+                    <h3>${article.title}</h3></a>
+                    
+                        <button data-id="" class="btn btn-sm btn-red save-btn">Save</button>
+                    
+                </div>
+            </div>
+        </div>
+        `);
+        return $item;
     }
 
 });
