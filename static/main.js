@@ -54,7 +54,7 @@ $(async function(){
         if(res.data.teams){
             return teams = res.data.teams.map( val => {
                 //Combine unique words from teamName field and alternate team name field into one array
-                let teamNameArr = val.strTeam.split(" ").concat(val.strAlternate.split(" "));
+                let teamNameArr = val.strTeam.split(" ");
                 let teamAlternateArr = val.strAlternate.split(" ");
 
                 for(let val of teamNameArr) {

@@ -126,14 +126,14 @@ def show_user():
     """Show user profile."""
 
     if not g.user:
-        flash("Access unauthorized.", "danger")
+        flash("You must log in to access that page.", "danger")
         return redirect("/login")
 
     form = AddFollow()
     return render_template('user.html', form=form)
 
 ############################################################################################
-# API
+# Follow
 ############################################################################################
 
 @app.route('/api/follow', methods=['POST'])
@@ -141,7 +141,7 @@ def add_follow():
     """Add an item to follow"""
 
     if not g.user:
-        flash("Access unauthorized.", "danger")
+        flash("You must log in to access that page.", "danger")
         return redirect("/login")
 
     form = AddFollow()
@@ -165,7 +165,7 @@ def add_follow():
 def delete_follow(follow_id):
     """Delete follow"""
     if not g.user:
-        flash("Access unauthorized.", "danger")
+        flash("You must log in to access that page.", "danger")
         return redirect("/login")
     
     follow = Follow.query.get_or_404(follow_id)
@@ -175,6 +175,9 @@ def delete_follow(follow_id):
 
     return redirect(f"/user")
 
+############################################################################################
+# News
+############################################################################################
 
 @app.route("/search")
 def search_news():
@@ -191,7 +194,7 @@ def my_news():
     """Displays news articles from the items the user follows"""
 
     if not g.user:
-        flash("Access unauthorized.", "danger")
+        flash("You must log in to access that page.", "danger")
         return redirect("/login")
     articles = {val.name: get_my_news(val.name) for val in g.user.follows}
     
@@ -203,7 +206,7 @@ def load_more_news():
     """Retrieves the next page of articles for the term"""
 
     if not g.user:
-        flash("Access unauthorized.", "danger")
+        flash("You must log in to access that page.", "danger")
         return redirect("/login")
 
     term = request.json['term']
@@ -212,26 +215,33 @@ def load_more_news():
     
     return (jsonify(articles=articles), 201)
 
+############################################################################################
+# Events
+############################################################################################
 
 @app.route('/events')
 def my_events():
     """Displays upcoming and past events from leagues and teams the user follows"""
 
     if not g.user:
-        flash("Access unauthorized.", "danger")
+        flash("You must log in to access that page.", "danger")
         return redirect("/login")
+        
     events = {val.name: get_my_events(val.sportsdb_id, val.category) for val in g.user.follows if val.category == "league" or val.category == "team"}
     past_events = {val.name: get_my_past_events(val.sportsdb_id, val.category) for val in g.user.follows if val.category == "league" or val.category == "team"}
     
     return render_template('events.html', events=events, past_events=past_events)
 
+############################################################################################
+# Favorites
+############################################################################################
 
 @app.route("/favorites")
 def get_favorites():
     """Saved sports news articles"""
 
     if not g.user:
-        flash("Access unauthorized.", "danger")
+        flash("You must log in to access that page.", "danger")
         return redirect("/login")
         
     return render_template('favorites.html')
@@ -242,7 +252,7 @@ def add_favorite():
     """Save a sports news article"""
 
     if not g.user:
-        flash("Access unauthorized.", "danger")
+        flash("You must log in to access that page.", "danger")
         return redirect("/login")
     
     title = request.json['title']
@@ -263,7 +273,7 @@ def delete_favorite(id):
     """Delete a saved article"""
 
     if not g.user:
-        flash("Access unauthorized.", "danger")
+        flash("You must log in to access that page.", "danger")
         return redirect("/login")
 
     article = Favorite.query.get_or_404(id)
