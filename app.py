@@ -194,7 +194,8 @@ def add_follow():
         follow = Follow(name=name, category=category, user_id=g.user.id, sportsdb_id=sportsdb_id, tb_image=tb_image)
         db.session.add(follow)
         db.session.commit()
-
+    else:
+        flash("Invalid input! Select an item from the list.", "danger")
     return redirect(f"/user")
 
 @app.route("/follow/<follow_id>/delete", methods=['POST'])

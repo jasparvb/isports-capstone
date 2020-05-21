@@ -19,6 +19,6 @@ class AddFollow(FlaskForm):
     """Form for adding a follow."""
 
     name = StringField("Name", validators=[InputRequired()], render_kw={"placeholder": "(example: Lionel Messi)"})
-    category = HiddenField("Category")
-    sportsdb_id = HiddenField("Dbid")
+    category = HiddenField("Category", validators=[InputRequired()])
+    sportsdb_id = HiddenField("Dbid", validators=[InputRequired()])
     tb_image = HiddenField("Thumb")

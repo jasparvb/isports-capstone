@@ -152,7 +152,7 @@ $(async function(){
         }
         await updateFavorites();
         //Remove save btn when user is not logged in
-        if(!$('unauthorized').length){
+        if($('.unauthorized').length){
             for(let val of $('.save-btn')) {
                 val.remove();
             }

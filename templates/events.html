@@ -19,7 +19,7 @@
         <div class="my-3 col-12 col-lg-4">
             <div class="card">
                 <div class="card-body text-center">
-                    <h3>Upcoming events</h3>
+                    <h3 class="event">Upcoming events</h3>
                     {% if events[follow.name] %}
                     <ul class="mx-2 my-3 px-2 text-left event-list">
                         {% for event in events[follow.name] %}
@@ -36,7 +36,7 @@
         <div class="my-3 col-12 col-lg-4">
             <div class="card">
                 <div class="card-body text-center">
-                    <h3>Recent events</h3>
+                    <h3 class="event">Recent events</h3>
                     {% if past_events[follow.name]["results"] %}
                     <ul class="mx-2 my-3 px-2 text-left event-list">
                         {% for event in past_events[follow.name]["results"] %}
@@ -67,7 +67,7 @@
         <div class="my-3 col-12 col-lg-4">
             <div class="card">
                 <div class="card-body text-center">
-                    <h3>Upcoming events</h3>
+                    <h3 class="event">Upcoming events</h3>
                     {% if events[follow.name] %}
                     <ul class="mx-2 my-3 px-2 text-left event-list">
                         {% for event in events[follow.name] %}
@@ -84,7 +84,7 @@
         <div class="my-3 col-12 col-lg-4">
             <div class="card">
                 <div class="card-body text-center">
-                    <h3>Recent events</h3>
+                    <h3 class="event">Recent events</h3>
                     {% if past_events[follow.name]["results"] %}
                     <ul class="mx-2 my-3 px-2 text-left event-list">
                         {% for event in past_events[follow.name]["results"] %}
