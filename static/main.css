@@ -20,6 +20,17 @@ input {
   border-radius: 3px;
 }
 
+input:active,
+input:focus,
+select:active,
+select:focus,
+option:focus,
+option:active {
+    box-shadow: none;
+    border: none;
+    outline: none;
+}
+
 img {
     width: 100%;
 }
@@ -226,12 +237,21 @@ p {
     color: white;
     background-color: #E40113;
     border-color: #E40113;
+    font-weight: 700;
 }
 
 .alert-success {
     color: #E40113;
-    background: none;
-    border-color: white;
+    background: #3c3c3c;
+    border-color: #3c3c3c;
+    font-weight: 700;
+}
+
+.error {
+    text-align: right;
+    font-size: .8rem;
+    color: #E40113;
+    margin-top: -20px;
 }
 
 /* ======================= Navbar ========================= */
@@ -368,23 +388,39 @@ nav form.navbar-form {
     border: none;
 }
 
-@media (min-width: 768px) and (max-width: 1400px) {
+.mobile {
+    display: none;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1400px) {
     .col-news {
         width: 25%;
         max-width: 25%;
     }
 }
 
-@media (min-width: 576px) and (max-width: 768px) {
+@media screen and (min-width: 576px) and (max-width: 768px) {
     .col-news {
         width: 33%;
         max-width: 33%;
     }
+    .mobile {
+        display: block;
+    }
+    .desktop {
+        display: none;
+    }
 }
 
-@media (max-width: 576px) {
+@media screen and (max-width: 576px) {
     .col-news {
         width: 100%;
         max-width: 100%;
+    }
+    .mobile {
+        display: block;
+    }
+    .desktop {
+        display: none;
     }
 }

@@ -3,7 +3,7 @@
 from flask import Flask, request, redirect, render_template, flash, jsonify, session, g
 from sqlalchemy.exc import IntegrityError
 from models import db, connect_db, User, Favorite, Follow
-from forms import AddUserForm, LoginUserForm, AddFollow
+from forms import AddUserForm, EditUserForm, LoginUserForm, AddFollow
 from isports import Isports
 
 CURR_USER_KEY = "curr_user"
@@ -156,6 +156,33 @@ def show_user():
     return render_template('user.html', form=form)
 
 
+@app.route('/user/edit', methods=['GET','POST'])
+def edit_user():
+    """Edit user profile."""
+
+    if not g.user:
+        flash("You must log in to access that page.", "danger")
+        return redirect("/login")
+
+    form = EditUserForm(obj=g.user)
+
+    if form.validate_on_submit():
+        try:
+            g.user.username = form.username.data
+            g.user.email = form.email.data
+
+            db.session.commit()
+
+            flash("User profile updated", 'success')
+            return redirect(f"/user")
+
+        except IntegrityError:
+            flash("Username already taken", 'danger')
+            return render_template('edit-user.html', form=form)
+    else:
+        return render_template('edit-user.html', form=form)
+
+
 @app.route('/user/delete', methods=['POST'])
 def delete_user():
     """Delete user profile."""
@@ -198,6 +225,7 @@ def add_follow():
     else:
         flash("Invalid input! Select an item from the list.", "danger")
     return redirect(f"/user")
+
 
 @app.route("/follow/<follow_id>/delete", methods=['POST'])
 def delete_follow(follow_id):

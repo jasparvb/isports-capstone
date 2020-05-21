@@ -22,13 +22,12 @@
 </head>
 
 <body class="{% block body_class %}{% endblock %}">
-<nav class="navbar navbar-expand">
+<nav class="navbar navbar-expand desktop">
   <div class="container-fluid">
     <div class="navbar-header logo">
       <a href="/" class="navbar-brand"><img src="/static/img/isports-logo.png" alt="logo"></a>
     </div>
     <ul class="nav navbar-nav navbar-left">
-      {% if request.endpoint != None %}
       <li>
         <form class="navbar-form navbar-right" action="/search">
           <input name="q" class="form-control" placeholder="Search iSports Top News" id="search">
@@ -37,10 +36,9 @@
           </button>
         </form>
       </li>
-      {% endif %}
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li>
+      <li class="select">
         <select class="language-select" id="language-select">
           {% for lang in g.lang %}
           <option value="{{ lang.value }}" {% if lang.value == g.selected_lang %}selected{% endif %}>{{ lang.label }}</option>
@@ -64,6 +62,51 @@
         </div>
       </li>
       {% endif %}
+    </ul>
+  </div>
+</nav>
+<nav class="navbar navbar-expand mobile">
+  <div class="container-fluid">
+    <div class="col-8 navbar-header logo">
+      <a href="/" class="navbar-brand"><img src="/static/img/isports-logo.png" alt="logo"></a>
+    </div>
+    <ul class="nav col-4 navbar-nav">  
+      <li class="mx-0 dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-bars"></i>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          {% if not g.user %}
+          <a class="dropdown-item" href="/signup">Sign up</a>
+          <a class="dropdown-item" href="/login">Log in</a>
+          {% else %}
+          <a class="dropdown-item" href="/news">My News</a>
+          <a class="dropdown-item" href="/events">Events</a>
+          <a class="dropdown-item" href="/favorites">Saved News</a>
+          <a class="dropdown-item" href="/user">User profile</a>
+          <a class="dropdown-item" href="/logout">Log out</a>
+        </div>
+      </li>
+      {% endif %}
+    </ul>
+    <ul class="nav col-10 navbar-nav">
+      <li>
+        <form class="navbar-form navbar-right" action="/search">
+          <input name="q" class="form-control" placeholder="Search iSports Top News" id="search">
+          <button class="btn btn-default">
+            <span class="fa fa-search"></span>
+          </button>
+        </form>
+      </li>
+    </ul>
+    <ul class="nav col-2 navbar-nav">
+      <li>
+        <select class="language-select" id="language-select">
+          {% for lang in g.lang %}
+          <option value="{{ lang.value }}" {% if lang.value == g.selected_lang %}selected{% endif %}>{{ lang.label }}</option>
+          {% endfor %}
+        </select>
+      </li>
     </ul>
   </div>
 </nav>
