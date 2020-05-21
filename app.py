@@ -4,7 +4,7 @@ from flask import Flask, request, redirect, render_template, flash, jsonify, ses
 from sqlalchemy.exc import IntegrityError
 from models import db, connect_db, User, Favorite, Follow
 from forms import AddUserForm, LoginUserForm, AddFollow
-from isports import get_top_news, get_all_news, get_my_news, get_my_events, get_my_past_events, get_league_image, languages
+from isports import Isports
 
 CURR_USER_KEY = "curr_user"
 LANGUAGE_KEY = "language"
@@ -22,11 +22,12 @@ app.config['SECRET_KEY'] = "SECRET!"
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 debug = DebugToolbarExtension(app)
 
+isports = Isports()
 
 @app.route("/")
 def home():
     """Render homepage with top sports news headlines"""
-    articles = get_top_news(session[LANGUAGE_KEY])
+    articles = isports.get_top_news(session[LANGUAGE_KEY])
     return render_template("home.html", articles=articles)
 
 
@@ -55,7 +56,7 @@ def add_user_to_g():
     else:
         g.user = None
 
-    g.lang = languages
+    g.lang = isports.languages
 
     if LANGUAGE_KEY in session:
         g.selected_lang = session[LANGUAGE_KEY]
@@ -189,7 +190,7 @@ def add_follow():
         tb_image = form.tb_image.data if form.tb_image.data else "/static/img/isports-default.png"
 
         if category == "league":
-            tb_image = get_league_image(sportsdb_id)
+            tb_image = isports.get_league_image(sportsdb_id)
 
         follow = Follow(name=name, category=category, user_id=g.user.id, sportsdb_id=sportsdb_id, tb_image=tb_image)
         db.session.add(follow)
@@ -221,7 +222,7 @@ def search_news():
     """Search sports news"""
     
     search = request.args["q"]
-    articles = get_all_news(search, session[LANGUAGE_KEY])
+    articles = isports.get_all_news(search, session[LANGUAGE_KEY])
 
     return render_template('search.html', articles=articles, search=search)
 
@@ -233,7 +234,7 @@ def my_news():
     if not g.user:
         flash("You must log in to access that page.", "danger")
         return redirect("/login")
-    articles = {val.name: get_my_news(val.name, session[LANGUAGE_KEY]) for val in g.user.follows}
+    articles = {val.name: isports.get_my_news(val.name, session[LANGUAGE_KEY]) for val in g.user.follows}
     
     return render_template('news.html', articles=articles)
 
@@ -244,7 +245,7 @@ def load_more_news():
 
     term = request.json['term']
     page = request.json['page']
-    articles = get_my_news(term, session[LANGUAGE_KEY], page)
+    articles = isports.get_my_news(term, session[LANGUAGE_KEY], page)
     
     return (jsonify(articles=articles), 201)
 
@@ -260,8 +261,8 @@ def my_events():
         flash("You must log in to access that page.", "danger")
         return redirect("/login")
 
-    events = {val.name: get_my_events(val.sportsdb_id, val.category) for val in g.user.follows if val.category == "league" or val.category == "team"}
-    past_events = {val.name: get_my_past_events(val.sportsdb_id, val.category) for val in g.user.follows if val.category == "league" or val.category == "team"}
+    events = {val.name: isports.get_my_events(val.sportsdb_id, val.category) for val in g.user.follows if val.category == "league" or val.category == "team"}
+    past_events = {val.name: isports.get_my_past_events(val.sportsdb_id, val.category) for val in g.user.follows if val.category == "league" or val.category == "team"}
     
     return render_template('events.html', events=events, past_events=past_events)
 
