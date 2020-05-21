@@ -20,6 +20,8 @@ class User(db.Model):
 
     password = db.Column(db.Text, nullable=False)
 
+    email = db.Column(db.String(50), nullable=True)
+
     favorites = db.relationship( 'Favorite', backref="user", cascade="all, delete")
 
     follows = db.relationship( 'Follow', backref="users")
