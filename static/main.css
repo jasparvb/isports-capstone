@@ -39,7 +39,7 @@ h3 {
     max-width: 1000px;
 }
 
-.news-search h3 {
+.news h3 {
     font-size: .8rem;
 }
 
@@ -114,8 +114,25 @@ p {
 
 .news-search .btn-sm.btn-red {
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: -2px;
+    right: 7px;
+    padding: 0;
+    border: none;
+    font-size: 1rem;
+    height: 28px;
+    background: none;
+}
+
+.fa-minus-square {
+    color: white;
+}
+
+.fa-minus-square:hover {
+    color: #E40113;
+}
+
+.news-search .btn-sm.btn-red:hover {
+    background: none;
 }
 
 .form-group {
@@ -216,50 +233,50 @@ p {
     top: 0;
     width: 100%;
     z-index: 9999;
-  }
+}
   
-  .navbar a {
+.navbar a {
     color: #818181;
     font-size: 16px;
     font-weight: bold;
     font-family: 'Open Sans', sans-serif;
-  }
+}
   
-  .navbar a:hover {
+.navbar a:hover {
     color: white;
-  }
+}
   
-  .navbar-brand {
+.navbar-brand {
     display: flex;
     align-items: center;
-  }
+}
   
-  .navbar-brand > img {
+.navbar-brand > img {
     display: inline-block;
     margin: 3px 0;
     width: 150px;
-  }
+}
   
-  .nav > li > a > img {
+.nav > li > a > img {
     width: 32px;
     border-radius: 32px;
-  }
+}
   
-  ul.nav.navbar-nav {
+ul.nav.navbar-nav {
     align-items: center;
-  }
+}
   
-  ul.nav.navbar-nav li {
+ul.nav.navbar-nav li {
     margin: 0 0.5rem;
     display: flex;
-  }
+}
   
-  nav form.navbar-form {
+nav form.navbar-form {
     display: flex;
     position: relative;
-  }
+}
   
-  #search.form-control {
+#search.form-control {
     border-radius: 0;
     margin-bottom: 0;
     width: 22rem;
@@ -272,9 +289,9 @@ p {
     border: 2px solid #464646;
     height: 50px;
     margin-left: -35px;
-  }
+}
   
-  #search.form-control + .btn {
+#search.form-control + .btn {
     position: absolute;
     right: -70px;
     top: 0;
@@ -287,36 +304,77 @@ p {
     width: 70px;
     border-radius: 0;
     border: none;
-  }
+}
   
-  #search.form-control + .btn:active,
-  #search.form-control + .btn:focus {
+#search.form-control + .btn:active,
+#search.form-control + .btn:focus {
     box-shadow: none;
-  }
+}
   
-  #search:active,
-  #search:focus {
+#search:active,
+#search:focus {
     box-shadow: none;
     border: 2px solid #E40113;
-  }
+}
   
-  @media (min-width: 768px) and (max-width: 1400px) {
-      .col-news {
-          width: 25%;
-          max-width: 25%;
-      }
-  }
+#dropdownMenuLink, #dropdownMenuLink:focus, #dropdownMenuLink:active {
+    background: none;
+    border: none;
+    box-shadow: none;
+}
 
-  @media (min-width: 576px) and (max-width: 768px) {
-      .col-news {
-          width: 33%;
-          max-width: 33%;
-      }
-  }
+.fa-user-circle {
+    font-size: .9rem;
+    color: #E40113;
+}
 
-  @media (max-width: 576px) {
-      .col-news {
-          width: 100%;
-          max-width: 100%;
-      }
-  }
+.dropdown-toggle::after {
+    display: none;
+}
+
+.dropdown-menu {
+    left: -110px;
+    top: 53px;
+    border: none;
+    border-radius: 0;
+}
+
+.navbar .dropdown-item:hover, .navbar .dropdown-item:focus {
+    color: #16181b;
+    text-decoration: underline;
+    background: none;
+}
+
+.language-select {
+    display: inline-block;
+    width: 100%;
+    padding: 0.1rem 1rem 0.1rem 0.1rem;
+    font-size: .6rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #818181;
+    vertical-align: middle;
+    background: #272727;
+    border: none;
+}
+
+@media (min-width: 768px) and (max-width: 1400px) {
+    .col-news {
+        width: 25%;
+        max-width: 25%;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
+    .col-news {
+        width: 33%;
+        max-width: 33%;
+    }
+}
+
+@media (max-width: 576px) {
+    .col-news {
+        width: 100%;
+        max-width: 100%;
+    }
+}

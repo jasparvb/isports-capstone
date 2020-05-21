@@ -5,7 +5,7 @@
     <div class="container my-5">
         <h2>Results for "{{ search }}"</h2>
     </div>
-    <div class="container my-5  news-search">
+    <div class="container my-5 news news-search">
         <div class="row news-row d-flex flex-wrap">
         {% for article in articles %}
             <div class="my-3 col-12 col-md-4 col-news article">
@@ -20,10 +20,10 @@
                     <h3>{{ article.title }}</h3></a>
                     {% if article.url in g.user.favorites|map(attribute='url')|join(', ') %}
                         {% for favorite in g.user.favorites if favorite.url == article.url %}
-                        <button data-id="{{ favorite.id }}" class="btn btn-sm btn-red save-btn saved">Undo saved</button>
+                        <button data-id="{{ favorite.id }}" class="btn btn-sm btn-red save-btn saved"><i class="far fa-minus-square"></i></button>
                         {% endfor %}
                     {% else %}
-                        <button data-id="" class="btn btn-sm btn-red save-btn">Save</button>
+                        <button data-id="" class="btn btn-sm btn-red save-btn"><i class="far fa-plus-square"></i></button>
                     {% endif %}
                 </div>
             </div>

@@ -10,7 +10,7 @@
 </div>
     {% if g.user.follows %}
       
-    <div class="container-fluid my-5 news-search">
+    <div class="container-fluid my-5 news-search news">
         
     {% for follow in g.user.follows %}
     <div class="row news-row">
@@ -31,10 +31,10 @@
                     <h3>{{ article.title }}</h3></a>
                     {% if article.url in g.user.favorites|map(attribute='url')|join(', ') %}
                         {% for favorite in g.user.favorites if favorite.url == article.url %}
-                        <button data-id="{{ favorite.id }}" class="btn btn-sm btn-red save-btn saved">Undo saved</button>
+                        <button data-id="{{ favorite.id }}" class="btn btn-sm btn-red save-btn saved"><i class="far fa-minus-square"></i></button>
                         {% endfor %}
                     {% else %}
-                        <button data-id="" class="btn btn-sm btn-red save-btn">Save</button>
+                        <button data-id="" class="btn btn-sm btn-red save-btn"><i class="far fa-plus-square"></i></button>
                     {% endif %}
                 </div>
             </div>

@@ -3,26 +3,30 @@
 from secret import API_KEY
 import requests
 
-def get_top_news():
+def get_top_news(lang="us"):
     """Make API requests to return top sports news"""
+    if lang == "en":
+        lang = "us"
+    if lang == "es":
+        lang = "mx"
 
-    resp = requests.get(f"https://newsapi.org/v2/top-headlines?category=sports&country=us&pageSize=7&apiKey={API_KEY}")
+    resp = requests.get(f"https://newsapi.org/v2/top-headlines", {"category": "sports", "pageSize": 7, "country": lang, "apiKey": API_KEY})
 
     return resp.json()["articles"]
 
 
-def get_all_news(term, page=1):
+def get_all_news(term, lang="en", page=1):
     """Make API request to return news matching search term"""
 
-    resp = requests.get(f"https://newsapi.org/v2/everything", {"q":f"sports {term}", "pageSize": 15, "page": page, "language": "de", "apiKey": API_KEY})
+    resp = requests.get(f"https://newsapi.org/v2/everything", {"q":f"sports {term}", "pageSize": 15, "page": page, "language": lang, "apiKey": API_KEY})
 
     return resp.json()["articles"]
 
 
-def get_my_news(term, page=1):
+def get_my_news(term, lang="en", page=1):
     """Make API request to return news matching followed item"""
 
-    resp = requests.get(f"https://newsapi.org/v2/everything", {"q": term, "pageSize": 7, "page": page, "language": "en", "apiKey": API_KEY})
+    resp = requests.get(f"https://newsapi.org/v2/everything", {"q": term, "pageSize": 7, "page": page, "language": lang, "apiKey": API_KEY})
     if resp.json()["status"] == "ok":
         return resp.json()["articles"]
     return {"error": "Max reached"}

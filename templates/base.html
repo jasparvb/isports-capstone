@@ -40,15 +40,29 @@
       {% endif %}
     </ul>
     <ul class="nav navbar-nav navbar-right">
+      <li>
+        <select class="language-select" id="language-select">
+          {% for lang in g.lang %}
+          <option value="{{ lang.value }}" {% if lang.value == g.selected_lang %}selected{% endif %}>{{ lang.label }}</option>
+          {% endfor %}
+        </select>
+      </li>
       {% if not g.user %}
       <li><a href="/signup">Sign up</a></li>
       <li><a href="/login">Log in</a></li>
       {% else %}
-      <li><a href="/user">User Profile</a></li>
       <li><a href="/news">My News</a></li>
       <li><a href="/events">Events</a></li>
       <li><a href="/favorites">Saved News</a></li>
-      <li><a href="/logout">Log out</a></li>
+      <li class="mx-0 dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-user-circle"></i>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item" href="/user">User profile</a>
+          <a class="dropdown-item" href="/logout">Log out</a>
+        </div>
+      </li>
       {% endif %}
     </ul>
   </div>

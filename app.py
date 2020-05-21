@@ -7,6 +7,7 @@ from forms import AddUserForm, LoginUserForm, AddFollow
 from isports import get_top_news, get_all_news, get_my_news, get_my_events, get_my_past_events, get_league_image
 
 CURR_USER_KEY = "curr_user"
+LANGUAGE_KEY = "language"
 
 app = Flask(__name__)
 
@@ -21,11 +22,23 @@ app.config['SECRET_KEY'] = "SECRET!"
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 debug = DebugToolbarExtension(app)
 
+
 @app.route("/")
 def home():
     """Render homepage with top sports news headlines"""
-    articles = get_top_news()
+    articles = get_top_news(session[LANGUAGE_KEY])
     return render_template("home.html", articles=articles)
+
+
+@app.route('/language', methods=['POST'])
+def set_language():
+    """Sets the preferred language in the session"""
+
+    language = request.json['language']
+    session[LANGUAGE_KEY] = language
+    
+    return (jsonify(status={"language":language}), 201)
+
 
 ############################################################################################
 # Signup/Login/Logout
@@ -33,13 +46,23 @@ def home():
 
 @app.before_request
 def add_user_to_g():
-    """If we're logged in, add curr user to Flask global."""
+    """If we're logged in, add curr user to Flask global.
+    Create array of languages and set current language"""
 
     if CURR_USER_KEY in session:
         g.user = User.query.get(session[CURR_USER_KEY])
 
     else:
         g.user = None
+
+    g.lang = [
+        {"value": "en", "label": "English"},
+        {"value": "es", "label": "Spanish"},
+        {"value": "de", "label": "German"},
+        {"value": "fr", "label": "French"},
+        {"value": "it", "label": "Italian"}]
+
+    g.selected_lang = session[LANGUAGE_KEY]
 
 
 def do_login(user):
@@ -185,7 +208,7 @@ def search_news():
     """Search sports news"""
     
     search = request.args["q"]
-    articles = get_all_news(search)
+    articles = get_all_news(search, session[LANGUAGE_KEY])
 
     return render_template('search.html', articles=articles, search=search)
 
@@ -197,7 +220,7 @@ def my_news():
     if not g.user:
         flash("You must log in to access that page.", "danger")
         return redirect("/login")
-    articles = {val.name: get_my_news(val.name) for val in g.user.follows}
+    articles = {val.name: get_my_news(val.name, session[LANGUAGE_KEY]) for val in g.user.follows}
     
     return render_template('news.html', articles=articles)
 
@@ -212,7 +235,7 @@ def load_more_news():
 
     term = request.json['term']
     page = request.json['page']
-    articles = get_my_news(term, page)
+    articles = get_my_news(term, session[LANGUAGE_KEY], page)
     
     return (jsonify(articles=articles), 201)
 

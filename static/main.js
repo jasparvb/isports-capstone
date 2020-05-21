@@ -6,6 +6,7 @@ $(async function(){
     
     $('body').on('click', '.save-btn', toggleFavorite.bind(this));
     $('body').on('click', '.show-more-btn', loadMoreNews.bind(this));
+    $('#language-select').on('change', changeLanguage.bind(this));
     
     $( "#follow-form #name" ).autocomplete({
         minLength: 3,
@@ -104,7 +105,7 @@ $(async function(){
                 for(let val of $('.card-body').find('a')) {
                     if(val.href === url) {
                         let savedBtn = $(val).next();
-                        savedBtn.text('Save');
+                        savedBtn.html('<i class="far fa-plus-square"></i>');
                         savedBtn.removeClass('saved');
                     }
                 }
@@ -123,7 +124,7 @@ $(async function(){
                 if(val.href === url) {
                     let savedBtn = $(val).next();
                     savedBtn.attr('data-id', response.data.favorite.id);
-                    savedBtn.text('Undo saved');
+                    savedBtn.html('<i class="far fa-minus-square"></i>');
                     savedBtn.addClass('saved');
                 }
             }
@@ -159,12 +160,19 @@ $(async function(){
                     <a href="${article.url}" target="_blank">
                     <img src="${article.urlToImage}" alt="">
                     <h3>${article.title}</h3></a>
-                    <button data-id="" class="btn btn-sm btn-red save-btn">Save</button>
+                    <button data-id="" class="btn btn-sm btn-red save-btn"><i class="far fa-plus-square"></button>
                 </div>
             </div>
         </div>
         `);
         return $item;
+    }
+
+    async function changeLanguage(e) {
+        let language = $(e.target).val();
+        const response = await axios.post(`${BASE_URL}/language`, {language});
+        window.location.href = window.location.pathname + window.location.search + window.location.hash;
+        console.log(response);
     }
 
 });
