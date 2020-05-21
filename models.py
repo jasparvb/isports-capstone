@@ -20,11 +20,7 @@ class User(db.Model):
 
     password = db.Column(db.Text, nullable=False)
 
-    email = db.Column(db.String(50), nullable=True)
-
     favorites = db.relationship( 'Favorite', backref="user", cascade="all, delete")
-
-    languages = db.relationship( 'Language', secondary='user_language', backref='users')
 
     follows = db.relationship( 'Follow', backref="users")
   
@@ -91,27 +87,3 @@ class Follow(db.Model):
     def __repr__(self):
         u = self
         return f"<Follow name={u.name}>"
-
-
-class UserLanguage(db.Model):
-    __tablename__ = 'user_language'
-
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='cascade'), nullable=False)
-
-    language_id = db.Column(db.Integer, db.ForeignKey('languages.id', ondelete='cascade'), nullable=False)
-
- 
-class Language(db.Model):
-    __tablename__ = 'languages'
-
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-
-    name = db.Column(db.Text, nullable=False)
-
-    symbol = db.Column(db.Text, nullable=False)
-
-    def __repr__(self):
-        u = self
-        return f"<Language name={u.name} symbol={u.symbol}>"
