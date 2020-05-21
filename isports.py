@@ -15,7 +15,7 @@ class Isports():
                 {"value": "it", "label": "Italian"}]
 
     def get_top_news(self, lang="us"):
-        """Make API requests to return top sports news"""
+        """Make API requests to return top sports news. Convert lang code to country code where different"""
         if lang == "en":
             lang = "us"
         if lang == "es":

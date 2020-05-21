@@ -178,7 +178,7 @@ $(async function(){
 
     //TODO: add function to update favorites icon on newly loaded results
     async function updateFavorites() {
-        const response = 1
+        const response = 0
     }
 
     async function changeLanguage(e) {

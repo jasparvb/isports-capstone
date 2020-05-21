@@ -9,17 +9,20 @@ class AddUserForm(FlaskForm):
     password = PasswordField("Password", validators=[InputRequired()])
     email = StringField("Email", validators=[Optional(), Email()], render_kw={"placeholder": "(Optional)"})
 
+
 class EditUserForm(FlaskForm):
     """Form for editing a user."""
 
     username = StringField("Username", validators=[InputRequired()])
     email = StringField("Email", validators=[Optional(), Email()], render_kw={"placeholder": "(Optional)"})
 
+
 class LoginUserForm(FlaskForm):
     """Form for logging in a user."""
 
     username = StringField("Username", validators=[InputRequired()])
     password = PasswordField("Password", validators=[InputRequired()])
+
 
 class AddFollow(FlaskForm):
     """Form for adding a follow."""
