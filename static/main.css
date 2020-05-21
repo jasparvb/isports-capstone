@@ -224,6 +224,12 @@ p {
     border-color: #E40113;
 }
 
+.alert-success {
+    color: #E40113;
+    background: none;
+    border-color: white;
+}
+
 /* ======================= Navbar ========================= */
 
 .navbar {

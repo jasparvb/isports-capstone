@@ -2,7 +2,7 @@
 
 {% block title %}iSports News{% endblock %}
 {% block content %}
-    <div class="container my-5">
+    <div class="container my-5 {% if not g.user %}unauthorized{% endif %}">
         <h2>Results for "{{ search }}"</h2>
     </div>
     <div class="container my-5 news news-search">
@@ -18,12 +18,14 @@
                             <img src="/static/img/isports-default.png" alt="logo">
                         {% endif %}
                     <h3>{{ article.title }}</h3></a>
-                    {% if article.url in g.user.favorites|map(attribute='url')|join(', ') %}
-                        {% for favorite in g.user.favorites if favorite.url == article.url %}
-                        <button data-id="{{ favorite.id }}" class="btn btn-sm btn-red save-btn saved"><i class="far fa-minus-square"></i></button>
-                        {% endfor %}
-                    {% else %}
-                        <button data-id="" class="btn btn-sm btn-red save-btn"><i class="far fa-plus-square"></i></button>
+                    {% if g.user %}
+                        {% if article.url in g.user.favorites|map(attribute='url')|join(', ') %}
+                            {% for favorite in g.user.favorites if favorite.url == article.url %}
+                            <button data-id="{{ favorite.id }}" class="btn btn-sm btn-red save-btn saved"><i class="far fa-minus-square"></i></button>
+                            {% endfor %}
+                        {% else %}
+                            <button data-id="" class="btn btn-sm btn-red save-btn"><i class="far fa-plus-square"></i></button>
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>

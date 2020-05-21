@@ -124,7 +124,7 @@ def login():
         if user:
             do_login(user)
             flash(f"Hello, {user.username}!", "success")
-            return redirect(f"/news/{user.username}")
+            return redirect(f"/news")
 
         flash("Invalid credentials.", 'danger')
 
@@ -226,10 +226,6 @@ def my_news():
 @app.route('/news', methods=['POST'])
 def load_more_news():
     """Retrieves the next page of articles for the term"""
-
-    if not g.user:
-        flash("You must log in to access that page.", "danger")
-        return redirect("/login")
 
     term = request.json['term']
     page = request.json['page']

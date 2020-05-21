@@ -141,14 +141,21 @@ $(async function(){
         const response = await axios.post(`${BASE_URL}/news`, {page, term});
         
         if(response.data.articles[0]){
-            console.log(response.data.articles)
             for(let article of response.data.articles) {
                 let newArticle = generateHTML(article);
+                console.log(newArticle.html());
                 $this.closest('.row').prev().append(newArticle);
             }
             $this.attr('data-page', page);
         } else {
             $this.remove();
+        }
+        await updateFavorites();
+        //Remove save btn when user is not logged in
+        if(!$('unauthorized').length){
+            for(let val of $('.save-btn')) {
+                val.remove();
+            }
         }
     }
 
@@ -160,12 +167,16 @@ $(async function(){
                     <a href="${article.url}" target="_blank">
                     <img src="${article.urlToImage}" alt="">
                     <h3>${article.title}</h3></a>
-                    <button data-id="" class="btn btn-sm btn-red save-btn"><i class="far fa-plus-square"></button>
+                    <button data-id="" class="btn btn-sm btn-red save-btn"><i class="far fa-plus-square"></i></button>
                 </div>
             </div>
         </div>
         `);
         return $item;
+    }
+
+    async function updateFavorites() {
+        const response = 1
     }
 
     async function changeLanguage(e) {
