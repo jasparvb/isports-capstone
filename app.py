@@ -104,7 +104,7 @@ def signup():
             return render_template('signup.html', form=form)
 
         do_login(user)
-
+        flash("Welcome to iSports! Start adding items to follow below.", 'success')
         return redirect(f"/user")
 
     else:
@@ -123,7 +123,7 @@ def login():
 
         if user:
             do_login(user)
-            flash(f"Hello, {user.username}!", "success")
+            flash(f"Hello, {user.username}, welcome back!", "success")
             return redirect(f"/news")
 
         flash("Invalid credentials.", 'danger')
@@ -153,6 +153,20 @@ def show_user():
 
     form = AddFollow()
     return render_template('user.html', form=form)
+
+
+@app.route('/user/delete', methods=['POST'])
+def delete_user():
+    """Delete user profile."""
+
+    if not g.user:
+        flash("You must log in to access that page.", "danger")
+        return redirect("/login")
+
+    db.session.delete(g.user)
+    db.session.commit()
+
+    return redirect("/")
 
 ############################################################################################
 # Follow

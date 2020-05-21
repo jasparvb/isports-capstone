@@ -24,7 +24,7 @@ class User(db.Model):
 
     favorites = db.relationship( 'Favorite', backref="user", cascade="all, delete")
 
-    follows = db.relationship( 'Follow', backref="users")
+    follows = db.relationship( 'Follow', backref="users", cascade="all, delete")
   
     def __repr__(self):
         u = self

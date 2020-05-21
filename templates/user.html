@@ -9,7 +9,7 @@
     {% endfor %}
     <p>Username: {{ g.user.username }}<br>
     Email: {{ g.user.email }}</p>
-    <form action="/user" method="POST">
+    <form action="/user/delete" method="POST">
         <a href="/user/edit" class="btn btn-sm btn-red">Edit User</a>
         <button class="btn btn-sm btn-red">Delete User</button>
     </form>
