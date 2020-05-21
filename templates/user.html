@@ -18,7 +18,7 @@
     <div class="row">
         <div class="col col-md-9">
 
-            <form id="follow-form" method="POST" action="/api/follow">
+            <form id="follow-form" method="POST" action="/follow">
                 
                 {{ form.hidden_tag() }}
                 {% for field in form if field.widget.input_type != 'hidden' %}

@@ -4,7 +4,7 @@ from flask import Flask, request, redirect, render_template, flash, jsonify, ses
 from sqlalchemy.exc import IntegrityError
 from models import db, connect_db, User, Favorite, Follow
 from forms import AddUserForm, LoginUserForm, AddFollow
-from isports import get_top_news, get_all_news, get_my_news, get_my_events, get_my_past_events, get_league_image
+from isports import get_top_news, get_all_news, get_my_news, get_my_events, get_my_past_events, get_league_image, languages
 
 CURR_USER_KEY = "curr_user"
 LANGUAGE_KEY = "language"
@@ -47,7 +47,7 @@ def set_language():
 @app.before_request
 def add_user_to_g():
     """If we're logged in, add curr user to Flask global.
-    Create array of languages and set current language"""
+    Save array of languages to g and set current language from session"""
 
     if CURR_USER_KEY in session:
         g.user = User.query.get(session[CURR_USER_KEY])
@@ -55,14 +55,12 @@ def add_user_to_g():
     else:
         g.user = None
 
-    g.lang = [
-        {"value": "en", "label": "English"},
-        {"value": "es", "label": "Spanish"},
-        {"value": "de", "label": "German"},
-        {"value": "fr", "label": "French"},
-        {"value": "it", "label": "Italian"}]
+    g.lang = languages
 
-    g.selected_lang = session[LANGUAGE_KEY]
+    if LANGUAGE_KEY in session:
+        g.selected_lang = session[LANGUAGE_KEY]
+    else:
+        g.selected_lang = "en"
 
 
 def do_login(user):
@@ -160,7 +158,7 @@ def show_user():
 # Follow
 ############################################################################################
 
-@app.route('/api/follow', methods=['POST'])
+@app.route('/follow', methods=['POST'])
 def add_follow():
     """Add an item to follow"""
 

@@ -3,6 +3,13 @@
 from secret import API_KEY
 import requests
 
+languages = [
+        {"value": "en", "label": "English"},
+        {"value": "es", "label": "Spanish"},
+        {"value": "de", "label": "German"},
+        {"value": "fr", "label": "French"},
+        {"value": "it", "label": "Italian"}]
+
 def get_top_news(lang="us"):
     """Make API requests to return top sports news"""
     if lang == "en":
