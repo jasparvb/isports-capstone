@@ -13,7 +13,7 @@
                 <div class="card-body text-center" data-timestamp="{{ article.publishedAt }}">
                     <a href="{{ article.url }}" target="_blank">
                         {% if article.urlToImage %}
-                            <img src="{{ article.urlToImage }}" alt="">
+                            <img src="{{ article.urlToImage }}" onerror="this.onerror=null; this.src='/static/img/isports-default.png'" alt="">
                         {% else %}
                             <img src="/static/img/isports-default.png" alt="logo">
                         {% endif %}

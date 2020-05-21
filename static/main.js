@@ -165,7 +165,7 @@ $(async function(){
             <div class="card">
                 <div class="card-body text-center" data-timestamp="${article.publishedAt}">
                     <a href="${article.url}" target="_blank">
-                    <img src="${article.urlToImage}" alt="">
+                    <img src="${article.urlToImage}" onerror="this.onerror=null; this.src='/static/img/isports-default.png'" alt="">
                     <h3>${article.title}</h3></a>
                     <button data-id="" class="btn btn-sm btn-red save-btn"><i class="far fa-plus-square"></i></button>
                 </div>
@@ -175,6 +175,8 @@ $(async function(){
         return $item;
     }
 
+
+    //TODO: add function to update favorites icon on newly loaded results
     async function updateFavorites() {
         const response = 1
     }
@@ -182,6 +184,7 @@ $(async function(){
     async function changeLanguage(e) {
         let language = $(e.target).val();
         const response = await axios.post(`${BASE_URL}/language`, {language});
+        //reload the page so articles are served in the selected language
         window.location.href = window.location.pathname + window.location.search + window.location.hash;
         console.log(response);
     }

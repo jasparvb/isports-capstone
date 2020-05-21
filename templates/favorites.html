@@ -13,7 +13,7 @@
             <div class="my-3 col col-md-4 article">
             <div class="card">
                 <div class="card-body text-center">
-                    <a href="{{ favorite.url }}" target="_blank"><img src="{{ favorite.image_url }}" alt="">
+                    <a href="{{ favorite.url }}" target="_blank"><img src="{{ favorite.image_url }}" onerror="this.onerror=null; this.src='/static/img/isports-default.png'" alt="">
                     <h3>{{ favorite.title }}</h3></a>
                     <button data-id="{{ favorite.id }}" class="btn btn-sm btn-red save-btn delete">Delete</button>
                 </div>
