@@ -1,5 +1,5 @@
 from app import app
-from models import db, User, Favorite, Language, UserLanguage, Follow
+from models import db, User, Favorite, Follow
 
 db.drop_all()
 db.create_all()
@@ -10,19 +10,7 @@ u1 = User.signup(
     "messi@fcb.es"
 )
 
-l1 = Language(name="Arabic", symbol="ar")
-l2 = Language(name="German", symbol="de")
-l3 = Language(name="English", symbol="en")
-l4 = Language(name="Spanish", symbol="es")
-l5 = Language(name="French", symbol="fr")
-l6 = Language(name="Italian", symbol="it")
-l7 = Language(name="Dutch", symbol="nl")
-l8 = Language(name="Norwegian", symbol="no")
-l9 = Language(name="Portuguese", symbol="pt")
-l10 = Language(name="Russian", symbol="ru")
-l11 = Language(name="Chinese", symbol="zh")
-
-db.session.add_all([u1, l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11])
+db.session.add(u1)
 db.session.commit()
 
 f1 = Favorite(
@@ -55,7 +43,6 @@ follow2 = Follow(
     category="team",
     tb_image="https://www.thesportsdb.com/images/media/team/badge/xqwpup1473502878.png")
 
-u1.languages.append(l3)
 
 db.session.add_all([f1, f2, follow1, follow2])
 db.session.commit()
