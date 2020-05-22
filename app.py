@@ -2,26 +2,25 @@
 
 from flask import Flask, request, redirect, render_template, flash, jsonify, session, g
 from sqlalchemy.exc import IntegrityError
+from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Favorite, Follow
 from forms import AddUserForm, EditUserForm, LoginUserForm, AddFollow
 from isports import Isports
+import os
 
 CURR_USER_KEY = "curr_user"
 LANGUAGE_KEY = "language"
 
 app = Flask(__name__)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:41361@localhost/isports"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'postgresql://postgres:41361@localhost/isports')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'mylittlesecret')
+app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 connect_db(app)
-
-from flask_debugtoolbar import DebugToolbarExtension
-app.config['SECRET_KEY'] = "SECRET!"
-app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 debug = DebugToolbarExtension(app)
-
 isports = Isports()
 
 @app.route("/")
@@ -61,6 +60,7 @@ def add_user_to_g():
     if LANGUAGE_KEY in session:
         g.selected_lang = session[LANGUAGE_KEY]
     else:
+        session[LANGUAGE_KEY] = "en"
         g.selected_lang = "en"
 
 
