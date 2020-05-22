@@ -1,6 +1,6 @@
 """Flask app for iSports"""
 
-from flask import Flask, request, redirect, render_template, flash, jsonify, session, g
+from flask import Flask, request, redirect, render_template, flash, jsonify, session, g, send_from_directory
 from sqlalchemy.exc import IntegrityError
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Favorite, Follow
@@ -38,6 +38,12 @@ def set_language():
     session[LANGUAGE_KEY] = language
     
     return (jsonify(status={"language":language}), 201)
+    
+
+@app.route('/favicon.ico')
+def favicon():
+    """Set the path to the favicon"""
+    return send_from_directory(os.path.join(app.root_path, 'static', 'img'), 'favicon.ico', mimetype='image/png')
 
 
 ############################################################################################
