@@ -1,4 +1,4 @@
-#<img src="https://raw.githubusercontent.com/jasparvb/isports-capstone/master/static/img/isports-logo.png" alt="alt text" width="150px" height="auto">  
+# <img src="https://raw.githubusercontent.com/jasparvb/isports-capstone/master/static/img/isports-logo.png" alt="alt text" width="150px" height="auto">  
 The purpose of iSports is to make it easier to view and save news articles and events from the whole web which relate specifically to the sports, leagues, teams, and players that you are interested in.
 
 The site is [deployed here](https://isports-news.herokuapp.com/).
