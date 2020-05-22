@@ -444,6 +444,9 @@ nav form.navbar-form {
 }
 
 @media (max-width: 576px) {
+    html {
+        font-size: 20px;
+    }
     .col-news {
         width: 100%;
         max-width: 100%;
@@ -454,6 +457,36 @@ nav form.navbar-form {
     }
 
     .fa-bars {
-        padding: 3px 0 0 0;
+        padding: 5px 0 0 0;
+        font-size: 1.8rem;
+    }
+    
+    .news-search .btn-sm.btn-red {
+        font-size: 1.5rem;
+    }
+
+    .language-select {
+        font-size: 1rem;
+    }
+
+    #search.form-control {
+        width: 14rem;
+        font-size: .8rem;
+        height: 40px;
+    }
+
+    .container.my-5 > h1, .container.my-5 > h2 {
+        margin-top: 7rem;
+    }
+
+    .navbar a {
+        font-size: 1rem;
+        line-height: 2rem;
+    }
+
+    .navbar.mobile .dropdown-menu {
+        top: 61px;
+        width: 300px;
+        padding: 1rem 0.3rem 2rem;
     }
 }

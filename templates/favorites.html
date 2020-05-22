@@ -10,7 +10,7 @@
     </div>
     <div class="container my-5 d-flex flex-wrap news">
         {% for favorite in g.user.favorites %}
-            <div class="my-3 col col-md-4 article">
+            <div class="my-3 col-12 col-md-4 article">
             <div class="card">
                 <div class="card-body text-center">
                     <a href="{{ favorite.url }}" target="_blank"><img src="{{ favorite.image_url }}" onerror="this.onerror=null; this.src='/static/img/isports-default.png'" alt="">
