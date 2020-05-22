@@ -465,6 +465,18 @@ nav form.navbar-form {
         font-size: 1.5rem;
     }
 
+    .btn-sm.btn-red {
+        font-size: .7rem;
+    }
+
+    .news h3, .card h4 {
+        font-size: 1.1rem;
+    }
+    
+    .carousel-caption h3 {
+        font-size: 1.3rem;
+    }
+
     .language-select {
         font-size: 1rem;
     }
@@ -475,8 +487,9 @@ nav form.navbar-form {
         height: 40px;
     }
 
-    .container.my-5 > h1, .container.my-5 > h2 {
-        margin-top: 7rem;
+    .container.my-5 > h1, .container.mt-5 > h1 {
+        margin-top: 7rem !important;
+        font-size: 2.2rem;
     }
 
     .navbar a {

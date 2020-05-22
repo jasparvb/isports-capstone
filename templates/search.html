@@ -3,7 +3,7 @@
 {% block title %}iSports News{% endblock %}
 {% block content %}
     <div class="container my-5 {% if not g.user %}unauthorized{% endif %}">
-        <h2>Results for "{{ search }}"</h2>
+        <h1>Results for "{{ search }}"</h1>
     </div>
     <div class="container my-5 news news-search">
         <div class="row news-row d-flex flex-wrap">
