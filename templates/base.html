@@ -97,7 +97,7 @@
           <li>
             <select class="language-select" id="language-select">
               {% for lang in g.lang %}
-              <option value="{{ lang.value }}" {% if lang.value == g.selected_lang %}selected{% endif %}>{{ lang.label }}</option>
+              <option value="{{ lang.value }}" {% if lang.value == g.selected_lang %}selected{% endif %}>{{ lang.value }}</option>
               {% endfor %}
             </select>
           </li>

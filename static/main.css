@@ -421,7 +421,8 @@ nav form.navbar-form {
         width: 10rem;
     }
     .language-select {
-        width: 110px;
+        width: 70px;
+        margin: 10px 6px;
     }
 }
 
@@ -446,5 +447,13 @@ nav form.navbar-form {
     .col-news {
         width: 100%;
         max-width: 100%;
+    }
+
+    #dropdownMenuLink {
+        padding-right: 0;
+    }
+
+    .fa-bars {
+        padding: 3px 0 0 0;
     }
 }
