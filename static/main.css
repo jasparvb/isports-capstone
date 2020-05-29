@@ -151,6 +151,7 @@ p {
 }
 
 .form-group {
+    display: -webkit-flex;
     display: flex;
     height: 50px;
 }
@@ -275,6 +276,7 @@ p {
 }
   
 .navbar-brand {
+    display: -webkit-flex;
     display: flex;
     align-items: center;
 }
@@ -291,10 +293,12 @@ ul.nav.navbar-nav {
   
 ul.nav.navbar-nav li {
     margin: 0 0.5rem;
+    display: -webkit-flex;
     display: flex;
 }
   
 nav form.navbar-form {
+    display: -webkit-flex;
     display: flex;
     position: relative;
     margin: 0 50px 0 10px;
@@ -415,6 +419,7 @@ nav form.navbar-form {
         display: none;
     }
     .mobile {
+        display: -webkit-flex;
         display: flex;
     }
     .search.form-control {
