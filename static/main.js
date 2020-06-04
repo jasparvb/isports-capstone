@@ -2,11 +2,12 @@ $(async function(){
 
     const sports = await getSports();
     const leagues = await getLeagues();
-    const BASE_URL = "http://127.0.0.1:5000";
+    //const BASE_URL = "http://127.0.0.1:5000";
+    const BASE_URL = "http://isports-news.herokuapp.com";
     
     $('body').on('click', '.save-btn', toggleFavorite.bind(this));
     $('body').on('click', '.show-more-btn', loadMoreNews.bind(this));
-    $('#language-select').on('change', changeLanguage.bind(this));
+    $('.language-select').on('change', changeLanguage.bind(this));
     
     $( "#follow-form #name" ).autocomplete({
         minLength: 3,
@@ -79,7 +80,7 @@ $(async function(){
         const res = await axios.get(`https://www.thesportsdb.com/api/v1/json/1/searchplayers.php?p=${term}`)
         if(res.data.player){
             return players = res.data.player.map( val => {
-                return {label: `${val.strPlayer} (${val.strTeam} - ${val.strPosition})`,
+                return {label: `${val.strPlayer} (${val.strTeam.replace("_", "")} - ${val.strPosition})`,
                     value: val.strPlayer,
                     category: "player",
                     dbid: val.idPlayer,
@@ -91,14 +92,14 @@ $(async function(){
 
     //Toggles a article as a favorite when user clicks on save btn
     async function toggleFavorite(e) {
-        let $this = $(e.target);
+        let $this = $(e.target).parent();
         if($this.hasClass('delete') || $this.hasClass('saved')) {
             let favoriteId = $this.attr('data-id');
 
             await axios.delete(`${BASE_URL}/favorites/${favoriteId}`);
 
             if($this.hasClass('delete')) {
-                $this.closest('.article').remove();
+                $this.closest('.article').fadeOut();
             } else {
                 let url = $this.closest('.card-body').find('a').attr('href');
                 //update all identical articles on the page to show as unsaved
