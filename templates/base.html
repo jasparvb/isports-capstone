@@ -95,7 +95,7 @@
       <div class="row">
         <ul class="nav col-2 navbar-nav">
           <li>
-            <select class="language-select" id="language-select">
+            <select class="language-select" id="language-select-mobile">
               {% for lang in g.lang %}
               <option value="{{ lang.value }}" {% if lang.value == g.selected_lang %}selected{% endif %}>{{ lang.value }}</option>
               {% endfor %}
