@@ -315,7 +315,7 @@ nav form.navbar-form {
     background: black;
     color: white;
     border: 2px solid #464646;
-    height: 50px;
+    height: 45px;
     margin-left: -35px;
 }
   
@@ -427,7 +427,7 @@ nav form.navbar-form {
     }
     .language-select {
         width: 70px;
-        margin: 10px 6px;
+        margin: 10px 0;
     }
 }
 
@@ -462,8 +462,8 @@ nav form.navbar-form {
     }
 
     .fa-bars {
-        padding: 5px 0 0 0;
-        font-size: 1.8rem;
+        padding: 6px 0 0 0;
+        font-size: 1.6rem;
     }
     
     .news-search .btn-sm.btn-red {
@@ -487,7 +487,7 @@ nav form.navbar-form {
     }
 
     .search.form-control {
-        width: 14rem;
+        width: 13rem;
         font-size: .8rem;
         height: 40px;
     }
@@ -506,5 +506,10 @@ nav form.navbar-form {
         top: 61px;
         width: 300px;
         padding: 1rem 0.3rem 2rem;
+    }
+
+    .language-select {
+        width: 66px;
+        margin: 10px 0;
     }
 }
