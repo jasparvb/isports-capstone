@@ -9,7 +9,7 @@ $(async function(){
     $('body').on('click', '.show-more-btn', loadMoreNews.bind(this));
     $('.language-select').on('change', changeLanguage.bind(this));
     
-    $( "#follow-form #name" ).autocomplete({
+    $('#follow-form #name').autocomplete({
         minLength: 3,
         source: async function (request, response) {
             let teams = await getTeams(request.term);
@@ -176,11 +176,7 @@ $(async function(){
         return $item;
     }
 
-
     //TODO: add function to update favorites icon on newly loaded results
-    async function updateFavorites() {
-        const response = 0
-    }
 
     async function changeLanguage(e) {
         let language = $(e.target).val();
