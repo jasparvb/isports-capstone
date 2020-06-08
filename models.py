@@ -64,7 +64,7 @@ class Favorite(db.Model):
 
     published_at = db.Column(db.DateTime, nullable=False)
 
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='cascade'), nullable=False)
  
     def __repr__(self):
         u = self
